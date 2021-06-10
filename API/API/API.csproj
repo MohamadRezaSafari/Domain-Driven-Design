@@ -1,0 +1,30 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="5.6.3" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\Framework\Framework.ApplicationService\Framework.ApplicationService.csproj" />
+    <ProjectReference Include="..\..\Framework\Framework.AssemblyHelper\Framework.AssemblyHelper\Framework.AssemblyHelper.csproj" />
+    <ProjectReference Include="..\..\Framework\Framework.Core\Framework.Core.csproj" />
+    <ProjectReference Include="..\..\Framework\Framework.DependencyInjection\Framework.DependencyInjection.csproj" />
+    <ProjectReference Include="..\..\Framework\Framework.Domain\Framework.Domain.csproj" />
+    <ProjectReference Include="..\..\Framework\Framework.Facade\Framework.Facade.csproj" />
+    <ProjectReference Include="..\..\Framework\Framework.Persistence\Framework.Persistence.csproj" />
+    <ProjectReference Include="..\..\WriteModel\EmployeeContext\ApplicationService\HR.EmployeeContext.ApplicationService.Contract\HR.EmployeeContext.ApplicationService.Contract.csproj" />
+    <ProjectReference Include="..\..\WriteModel\EmployeeContext\ApplicationService\HR.EmployeeContext.ApplicationService\HR.EmployeeContext.ApplicationService.csproj" />
+    <ProjectReference Include="..\..\WriteModel\EmployeeContext\Domain\HR.EmployeeContext.Domain\HR.EmployeeContext.Domain.csproj" />
+    <ProjectReference Include="..\..\WriteModel\EmployeeContext\Facade\HR.EmployeeContext.Facade.Contract\HR.EmployeeContext.Facade.Contract.csproj" />
+    <ProjectReference Include="..\..\WriteModel\EmployeeContext\Facade\HR.EmployeeContext.Facade\HR.EmployeeContext.Facade.csproj" />
+    <ProjectReference Include="..\..\WriteModel\EmployeeContext\HR.EmployeeContext.Configuration\HR.EmployeeContext.Configuration.csproj" />
+    <ProjectReference Include="..\..\WriteModel\EmployeeContext\Infrastructure\HR.EmployeeContext.Infrastructure.Persistence\HR.EmployeeContext.Infrastructure.Persistence.csproj" />
+    <ProjectReference Include="..\..\WriteModel\EmployeeContext\Resource\HR.EmployeeContext.Resources\HR.EmployeeContext.Resources.csproj" />
+    <ProjectReference Include="..\..\WriteModel\HR.Persistence\HR.Persistence.csproj" />
+  </ItemGroup>
+
+</Project>

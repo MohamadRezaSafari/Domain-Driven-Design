@@ -30,6 +30,7 @@ namespace Framework.DependencyInjection
             RegisterTransient<IEntityMapping>();
             RegisterTransient<IRepository>();
             RegisterTransient<IHandler>();
+            RegisterTransient<IQueryFacade>();
             RegisterTransient<ICommandFacade>();
         }
 

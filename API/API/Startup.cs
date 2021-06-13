@@ -1,20 +1,18 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
-using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using Framework.AssemblyHelper;
 using Framework.Core.DependencyInjection;
 using Framework.Persistence;
 using HR.Persistence;
+using HR.ReadModel.Context.Models;
 using Microsoft.EntityFrameworkCore;
+using System;
+using Microsoft.OpenApi.Any;
 
 namespace API
 {
@@ -30,8 +28,11 @@ namespace API
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddControllers()
+                .AddJsonOptions(options =>
+                    options.JsonSerializerOptions.Converters.Add(new TimeSpanToStringConverter()));
 
-            services.AddControllers();
+            //services.AddControllers();
             var assemblyDiscovery = new AssemblyDiscovery("HR*.dll");
             var registrars = assemblyDiscovery.DiscoverInstances<IRegistrar>("HR").ToList();
             foreach (var registrar in registrars)
@@ -44,11 +45,20 @@ namespace API
                 op.UseSqlServer("Server=.;Database=HR_Developer;Trusted_Connection=True;");
 
             });
-            
+            services.AddDbContext<HR_DeveloperContext>(op =>
+            {
+                op.UseSqlServer("Server=.;Database=HR_Developer;Trusted_Connection=True;");
+
+            });
 
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "API", Version = "v1" });
+                c.MapType<TimeSpan>(() => new OpenApiSchema
+                {
+                    Type = "string",
+                    Example = new OpenApiString("00:00:00")
+                });
             });
 
         }

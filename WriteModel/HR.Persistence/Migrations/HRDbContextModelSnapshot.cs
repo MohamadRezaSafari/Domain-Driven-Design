@@ -19,6 +19,22 @@ namespace HR.Persistence.Migrations
                 .HasAnnotation("ProductVersion", "5.0.7")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+            modelBuilder.Entity("HR.EmployeeContext.Domain.EmployeeIos.EmployeeIo", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .HasColumnType("UniqueIdentifier");
+
+                    b.Property<DateTime>("DateTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<long>("EmployeeId")
+                        .HasColumnType("bigint");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("EmployeeIo", "EmployeeContext");
+                });
+
             modelBuilder.Entity("HR.EmployeeContext.Domain.Employees.Employee", b =>
                 {
                     b.Property<Guid>("Id")
@@ -47,6 +63,53 @@ namespace HR.Persistence.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Employee", "EmployeeContext");
+                });
+
+            modelBuilder.Entity("HR.ShiftContext.Domain.ShiftTemplates.ShiftTemplate", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .HasColumnType("UniqueIdentifier");
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("ShiftTemplate", "ShiftContext");
+                });
+
+            modelBuilder.Entity("HR.ShiftContext.Domain.Shifts.Shift", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .HasColumnType("UniqueIdentifier");
+
+                    b.Property<TimeSpan>("EndTime")
+                        .HasColumnType("time");
+
+                    b.Property<long?>("NextShift")
+                        .HasColumnType("bigint");
+
+                    b.Property<long>("ShiftId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<Guid>("ShiftTemplateId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<TimeSpan>("StartTime")
+                        .HasColumnType("time");
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Shift", "ShiftContext");
                 });
 #pragma warning restore 612, 618
         }

@@ -1,0 +1,13 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\..\Framework\Framework.ApplicationService\Framework.ApplicationService.csproj" />
+    <ProjectReference Include="..\..\..\..\Framework\Framework.Facade\Framework.Facade.csproj" />
+    <ProjectReference Include="..\HR.ShiftContext.Facade.Contract\HR.ShiftContext.Facade.Contract.csproj" />
+  </ItemGroup>
+
+</Project>

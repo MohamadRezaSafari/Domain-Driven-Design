@@ -17,6 +17,14 @@ namespace HR.EmployeeContext.Facade
             CommandBus.Dispatch(command);
         }
 
-        
+        public void DeleteEmployee(EmployeeDeleteCommand command)
+        {
+            CommandBus.Dispatch(command);
+        }
+
+        public void UpdateEmployee(EmployeeUpdateCommand command)
+        {
+            CommandBus.Dispatch(command);
+        }
     }
 }

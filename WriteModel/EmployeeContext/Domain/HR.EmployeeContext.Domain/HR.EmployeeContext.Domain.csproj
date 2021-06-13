@@ -10,4 +10,8 @@
     <ProjectReference Include="..\..\Resource\HR.EmployeeContext.Resources\HR.EmployeeContext.Resources.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="EmployeeIos\Services\" />
+  </ItemGroup>
+
 </Project>

@@ -61,6 +61,33 @@ namespace HR.EmployeeContext.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to  تاریخ نمی تواند خالی باشد.
+        /// </summary>
+        public static string DateTimeRequiredException {
+            get {
+                return ResourceManager.GetString("DateTimeRequiredException", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to کد پرسنلی نمی تواند خالی باشد.
+        /// </summary>
+        public static string EmployeeIdRequiredException {
+            get {
+                return ResourceManager.GetString("EmployeeIdRequiredException", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to اطلاعات پرسنل یافت نشد.
+        /// </summary>
+        public static string EmployeeIsExistsException {
+            get {
+                return ResourceManager.GetString("EmployeeIsExistsException", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to نام نمی تواند خالی باشد.
         /// </summary>
         public static string FirstNameRequiredException {

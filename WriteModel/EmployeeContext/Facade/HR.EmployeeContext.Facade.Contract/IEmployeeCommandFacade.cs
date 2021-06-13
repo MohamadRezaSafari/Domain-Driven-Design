@@ -6,5 +6,7 @@ namespace HR.EmployeeContext.Facade.Contract
     public interface IEmployeeCommandFacade
     {
         void CreateEmployee(EmployeeCreateCommand command);
+        void DeleteEmployee(EmployeeDeleteCommand command);
+        void UpdateEmployee(EmployeeUpdateCommand command);
     }
 }

@@ -27,7 +27,5 @@ namespace Framework.Persistence
         {
             dbContext.Set<TAggregateRoot>().Remove(aggregateRoot);
         }
-
-
     }
 }

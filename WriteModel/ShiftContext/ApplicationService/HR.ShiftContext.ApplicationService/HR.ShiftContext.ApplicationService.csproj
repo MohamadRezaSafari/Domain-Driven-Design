@@ -1,0 +1,12 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\Domain\HR.ShiftContext.Domain\HR.ShiftContext.Domain.csproj" />
+    <ProjectReference Include="..\HR.ShiftContext.ApplicationService.Contract\HR.ShiftContext.ApplicationService.Contract.csproj" />
+  </ItemGroup>
+
+</Project>

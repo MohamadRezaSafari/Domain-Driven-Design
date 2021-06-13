@@ -10,7 +10,7 @@ namespace HR.Persistence
 {
     public class HRDbContext : DbContextBase
     {
-        public HRDbContext(DbContextOptions options) : base(options)
+        public HRDbContext(DbContextOptions<HRDbContext> options) : base(options)
         {
         }
 
@@ -23,6 +23,7 @@ namespace HR.Persistence
                 modelBuilder.ApplyConfiguration(a);
 
             });
+            //base.OnModelCreating(modelBuilder);
         }
 
 

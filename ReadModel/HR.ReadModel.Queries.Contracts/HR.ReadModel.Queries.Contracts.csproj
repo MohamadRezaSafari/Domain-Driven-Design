@@ -1,0 +1,15 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Folder Include="Employees\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\HR.ReadModel.Context\HR.ReadModel.Context.csproj" />
+  </ItemGroup>
+
+</Project>

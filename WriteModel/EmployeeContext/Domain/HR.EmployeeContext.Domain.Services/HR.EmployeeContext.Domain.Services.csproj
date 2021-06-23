@@ -5,10 +5,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Employees\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\HR.EmployeeContext.Domain\HR.EmployeeContext.Domain.csproj" />
   </ItemGroup>
 

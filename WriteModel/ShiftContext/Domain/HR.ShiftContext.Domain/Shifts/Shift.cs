@@ -4,6 +4,11 @@ using HR.ShiftContext.Domain.Shifts.Exceptions;
 using HR.ShiftContext.Domain.ShiftTemplates.Exceptions;
 using HR.ShiftContext.Domain.ShiftTemplates.Services;
 using System;
+using HR.ShiftContext.Domain.Shifts.Services;
+using System.Collections.Generic;
+using HR.ShiftContext.Domain.ShiftTemplates;
+using System.Linq.Expressions;
+using System.Linq;
 
 namespace HR.ShiftContext.Domain.Shifts
 {
@@ -13,22 +18,22 @@ namespace HR.ShiftContext.Domain.Shifts
 
         protected Shift() { }
 
-        public Shift(string title, Guid shiftTemplateId, TimeSpan startTime, TimeSpan endTime, int? nextShift, IShiftTemplateExists shiftTemplateExists)
+        public Shift(string title, TimeSpan startTime, TimeSpan endTime, Guid? nextShift, IShiftTemplateExists shiftTemplateExists)
         {
             this.shiftTemplateExists = shiftTemplateExists;
 
             SetTitle(title);
-            SetShiftTemplateId(shiftTemplateId, shiftTemplateExists);
+            //SetShiftTemplateId(shiftTemplateId, shiftTemplateExists);
             SetTime(startTime, endTime);
-            NextShift = nextShift;            
+            NextShiftId = nextShift;
         }
 
         private void SetTime(TimeSpan startTime, TimeSpan endTime)
         {
-            if(startTime == null && endTime == null)
+            if (startTime == null && endTime == null)
                 throw new ShiftTimeRequiredException();
 
-            if(startTime > endTime)
+            if (startTime > endTime)
                 throw new InvalidShiftTimeRangeException();
 
             StartTime = startTime;
@@ -37,10 +42,10 @@ namespace HR.ShiftContext.Domain.Shifts
 
         private void SetShiftTemplateId(Guid shiftTemplateId, IShiftTemplateExists shiftTemplateExists)
         {
-            if(shiftTemplateId == null)
+            if (shiftTemplateId == null)
                 throw new ShiftTemplateIdRequiredException();
 
-            if(!shiftTemplateExists.Exist(shiftTemplateId))
+            if (!shiftTemplateExists.Exist(shiftTemplateId))
                 throw new ShiftTemplateExistsException();
 
             ShiftTemplateId = shiftTemplateId;
@@ -48,17 +53,67 @@ namespace HR.ShiftContext.Domain.Shifts
 
         private void SetTitle(string title)
         {
-            if(String.IsNullOrWhiteSpace(title))
+            if (String.IsNullOrWhiteSpace(title))
                 throw new ShiftTitleRequiredException();
 
             Title = title;
         }
 
-        public long ShiftId { get; set; }
+
+        public void SetInOrderNextShiftId(IShiftExists shiftExists, IInOrderDuplicationChecker inOrderDuplicationChecker, Shift nextShift)
+        {
+
+            //if (!shiftExists.Exist(nextShift.Id))
+            //    throw new NextShiftNotExistsException();
+
+            //if (inOrderDuplicationChecker.isDuplicate(this.ShiftTemplateId, nextShift.ShiftId))
+            //    throw new NextShiftReservedException();
+
+            //if (this.ShiftId == nextShift.ShiftId)
+            //    throw new NextShiftRecursiveException();
+
+            //if (this.ShiftTemplateId != nextShift.ShiftTemplateId)
+            //    throw new NextShiftTemplateIdConflictException();
+
+            //if ((nextShift.StartTime.TotalSeconds != 0 || nextShift.EndTime.TotalSeconds != 0)
+            //        && this.EndTime > nextShift.StartTime)
+            //    throw new MissMatchNextShiftStartTimeException();
+
+            //this.NextShift = nextShift.ShiftId;
+        }
+
+
+     
         public string Title { get; set; }
         public Guid ShiftTemplateId { get; set; }
         public TimeSpan StartTime { get; set; }
         public TimeSpan EndTime { get; set; }
-        public long? NextShift { get; set; }
+        public Guid? NextShiftId { get; set; }
+        public ICollection<ShiftTemplate> ShiftTemplates { get; private set; } = new HashSet<ShiftTemplate>();
+
+
+        public void AddShiftTemplate(string shiftTemplateTitle)
+        {
+            var shiftTampltes = this.ShiftTemplates.Where(i => i.Title == shiftTemplateTitle).ToList();
+
+            if (shiftTampltes.Count() == 0)
+            {
+                var shiftTemplate = new ShiftTemplate(shiftTemplateTitle);
+                ShiftTemplates.Add(shiftTemplate);
+                this.ShiftTemplateId = shiftTemplate.Id;
+            }
+            else
+            {
+                this.ShiftTemplateId = shiftTampltes.First().Id;
+            }
+        }
+
+
+
+        public IEnumerable<Expression<Func<Shift, object>>> GetAggregateExpressions()
+        {
+            //yield return null;
+            yield return e => e.ShiftTemplates;
+        }
     }
 }

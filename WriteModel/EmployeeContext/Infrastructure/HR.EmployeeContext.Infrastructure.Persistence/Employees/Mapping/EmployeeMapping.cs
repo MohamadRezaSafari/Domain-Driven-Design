@@ -11,7 +11,7 @@ namespace HR.EmployeeContext.Infrastructure.Persistence.Employees.Mapping
         {
             Initial(builder);
 
-            builder.Property(i => i.EmployeeId).IsRequired().ValueGeneratedOnAdd();
+            builder.Property(i => i.EmployeeId).ValueGeneratedOnAdd().IsRequired();
             builder.Property(i => i.FirstName).HasMaxLength(100).IsRequired();
             builder.Property(i => i.LastName).HasMaxLength(100).IsRequired();
             builder.Property(i => i.IsActive).HasDefaultValue(true);

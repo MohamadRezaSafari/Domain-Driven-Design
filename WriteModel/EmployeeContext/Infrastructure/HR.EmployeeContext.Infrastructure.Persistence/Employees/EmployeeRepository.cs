@@ -33,5 +33,20 @@ namespace HR.EmployeeContext.Infrastructure.Persistence.Employees
         {
             return dbContext.Set<Employee>().Any(expression);
         }
+
+        public bool BoolHasShift(Expression<Func<ShiftAssignment, bool>> expression)
+        {
+            return dbContext.Set<ShiftAssignment>().Any(expression);
+        }
+
+        public Employee GetByEmployeeById(Guid id)
+        {
+            return dbContext.Set<Employee>().Single(e => e.Id == id);
+        }
+
+        public void ShiftAssign(ShiftAssignment shiftAssignment)
+        {
+           // base.Create(shiftAssignment);
+        }
     }
 }

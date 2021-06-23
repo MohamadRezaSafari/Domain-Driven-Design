@@ -7,5 +7,6 @@ namespace HR.ShiftContext.Facade.Contract
     {
         void ShiftCreate(ShiftCreateCommand command);
         void ShiftTemplateCreate(ShiftTemplateCreateCommand command);
+        void ShiftSetNextShiftId(InOrderShiftCommand command);
     }
 }

@@ -8,4 +8,8 @@
     <ProjectReference Include="..\HR.ShiftContext.Domain\HR.ShiftContext.Domain.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Shift\" />
+  </ItemGroup>
+
 </Project>

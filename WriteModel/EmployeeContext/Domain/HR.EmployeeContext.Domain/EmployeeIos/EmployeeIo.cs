@@ -1,38 +1,38 @@
 ﻿using Framework.Domain;
 using HR.EmployeeContext.Domain.EmployeeIos.Exceptions;
 using System;
+using Framework.Core.Domain;
 
 namespace HR.EmployeeContext.Domain.EmployeeIos
 {
-    public class EmployeeIo : EntityBase
+    public class EmployeeIo : EntityBase, IAggregateRoot
     {
         protected EmployeeIo()
         {
         }
 
-        public EmployeeIo(long employeeId, DateTime dateTime)
+        public EmployeeIo(Guid employeeId,DateTime dateTime)
         {
             SetEmployeeId(employeeId);
             SetDateTime(dateTime);
         }
 
-        private void SetEmployeeId(long employeeId)
+        private void SetEmployeeId(Guid employeeId)
         {
             if(employeeId == null)
                 throw new EmployeeIdRequiredException();
+            EmployeeId = employeeId;
         }
 
         private void SetDateTime(DateTime dateTime)
         {
-            if(dateTime == null)
+            if (dateTime == null)
                 throw new DateTimeRequiredException();
-
-            // TODO :: Shift Check
 
             DateTime = dateTime;
         }
 
-        public long EmployeeId { get; private set; }
+        public Guid EmployeeId { get; private set; }
         public DateTime DateTime { get; private set; }
     }
 }

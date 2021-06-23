@@ -16,7 +16,17 @@ namespace HR.ShiftContext.ApplicationService.ShiftTemplates
 
         public void Execute(ShiftTemplateCreateCommand command)
         {
+            //var shift = new Shift()
+            //var shifts = shiftRepository.GetShifts(command.ShiftIds);
             var shiftTemplate = new ShiftTemplate(command.Title);
+
+            //foreach (var shift in shifts)
+            //{
+            //    shift.ShiftTemplates = shiftTemplate;
+            //    shiftAdd(shiftTemplate);
+            //}
+
+            
 
             shiftRepository.ShiftTermplateCreate(shiftTemplate);
         }

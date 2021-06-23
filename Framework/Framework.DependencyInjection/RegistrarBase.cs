@@ -32,6 +32,7 @@ namespace Framework.DependencyInjection
             RegisterTransient<IHandler>();
             RegisterTransient<IQueryFacade>();
             RegisterTransient<ICommandFacade>();
+            RegisterTransient<IACLService>();
         }
 
         private void RegisterFramework()

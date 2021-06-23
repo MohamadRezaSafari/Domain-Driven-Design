@@ -120,6 +120,21 @@
   <data name="InvalidShiftTimeRangeException" xml:space="preserve">
     <value>ساعت شروع شیفت باید کوچک تر از ساعت پایان شیفت باشد</value>
   </data>
+  <data name="MissMatchNextShiftStartTimeException" xml:space="preserve">
+    <value>ساعت شروع شیفت بعدی مطابقت ندارد</value>
+  </data>
+  <data name="NextShiftNotExistsException" xml:space="preserve">
+    <value>شناسه شیفت معتبر نمی باشد</value>
+  </data>
+  <data name="NextShiftRecursiveException" xml:space="preserve">
+    <value>شناسه شیف بعدی نمی تواند شناسه شیف فعلی باشد</value>
+  </data>
+  <data name="NextShiftReservedException" xml:space="preserve">
+    <value>شیفت بعدی قبلا رزرو شده</value>
+  </data>
+  <data name="NextShiftTemplateIdConflictException" xml:space="preserve">
+    <value>کد الگوی شیفت بعدی مغایرت دارد</value>
+  </data>
   <data name="ShiftTemplateExistsException" xml:space="preserve">
     <value>الگوی شیفت نامعتبر است</value>
   </data>

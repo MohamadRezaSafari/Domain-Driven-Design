@@ -8,15 +8,16 @@ namespace HR.ReadModel.Queries.Facade.Employees
 {
     public class EmployeeQueryFacade: FacadeQueryBase, IEmployeeQueryFacade
     {
-        private readonly HR_DeveloperContext _context;
+        private readonly HR_DeveloperContext context;
 
         public EmployeeQueryFacade(HR_DeveloperContext context)
         {
-            _context = context;
+            this.context = context;
         }
+
         public List<Employee> GetAllEmployees()
         {
-            return _context.Employees.ToList();
+            return context.Employees.ToList();
         }
     }
 }

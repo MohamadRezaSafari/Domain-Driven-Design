@@ -1,6 +1,5 @@
 ﻿using Framework.Core.ApplicationService;
 using HR.EmployeeContext.ApplicationService.Contract.Employees;
-using HR.EmployeeContext.Domain.Employees;
 using HR.EmployeeContext.Domain.Employees.Services;
 
 namespace HR.EmployeeContext.ApplicationService.Employees
@@ -19,7 +18,6 @@ namespace HR.EmployeeContext.ApplicationService.Employees
         {
             var employee = _employeeRepository.GetByEmployeeId(command.EmployeeId);
             employee?.DeleteEmployee(_employeeIsExists);
-            _employeeRepository.Update(employee);
             
         }
     }

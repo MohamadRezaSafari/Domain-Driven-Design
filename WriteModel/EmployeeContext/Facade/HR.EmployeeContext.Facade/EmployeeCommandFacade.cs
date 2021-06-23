@@ -26,5 +26,10 @@ namespace HR.EmployeeContext.Facade
         {
             CommandBus.Dispatch(command);
         }
+
+        public void AssignShift(ShiftAssignmentCommend command)
+        {
+            CommandBus.Dispatch(command);
+        }
     }
 }

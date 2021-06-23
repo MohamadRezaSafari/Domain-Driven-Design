@@ -8,5 +8,6 @@ namespace HR.EmployeeContext.Facade.Contract
         void CreateEmployee(EmployeeCreateCommand command);
         void DeleteEmployee(EmployeeDeleteCommand command);
         void UpdateEmployee(EmployeeUpdateCommand command);
+        void AssignShift(ShiftAssignmentCommend command);
     }
 }

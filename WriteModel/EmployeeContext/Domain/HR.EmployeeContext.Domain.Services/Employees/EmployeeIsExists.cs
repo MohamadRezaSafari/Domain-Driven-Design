@@ -1,4 +1,5 @@
-﻿using HR.EmployeeContext.Domain.Employees.Services;
+﻿
+using HR.EmployeeContext.Domain.Employees.Services;
 
 namespace HR.EmployeeContext.Domain.Services.Employees
 {

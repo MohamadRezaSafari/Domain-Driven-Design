@@ -70,6 +70,51 @@ namespace HR.ShiftContext.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to ساعت شروع شیفت بعدی مطابقت ندارد.
+        /// </summary>
+        public static string MissMatchNextShiftStartTimeException {
+            get {
+                return ResourceManager.GetString("MissMatchNextShiftStartTimeException", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to شناسه شیفت معتبر نمی باشد.
+        /// </summary>
+        public static string NextShiftNotExistsException {
+            get {
+                return ResourceManager.GetString("NextShiftNotExistsException", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to شناسه شیف بعدی نمی تواند شناسه شیف فعلی باشد.
+        /// </summary>
+        public static string NextShiftRecursiveException {
+            get {
+                return ResourceManager.GetString("NextShiftRecursiveException", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to شیفت بعدی قبلا رزرو شده.
+        /// </summary>
+        public static string NextShiftReservedException {
+            get {
+                return ResourceManager.GetString("NextShiftReservedException", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to کد الگوی شیفت بعدی مغایرت دارد.
+        /// </summary>
+        public static string NextShiftTemplateIdConflictException {
+            get {
+                return ResourceManager.GetString("NextShiftTemplateIdConflictException", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to الگوی شیفت نامعتبر است.
         /// </summary>
         public static string ShiftTemplateExistsException {

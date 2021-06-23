@@ -5,13 +5,15 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\..\..\Framework\Framework.Core\Framework.Core.csproj" />
-    <ProjectReference Include="..\..\..\..\Framework\Framework.Domain\Framework.Domain.csproj" />
-    <ProjectReference Include="..\..\Resource\HR.EmployeeContext.Resources\HR.EmployeeContext.Resources.csproj" />
+    <Compile Remove="EmployeeAssignShift\**" />
+    <EmbeddedResource Remove="EmployeeAssignShift\**" />
+    <None Remove="EmployeeAssignShift\**" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="EmployeeIos\Services\" />
+    <ProjectReference Include="..\..\..\..\Framework\Framework.Core\Framework.Core.csproj" />
+    <ProjectReference Include="..\..\..\..\Framework\Framework.Domain\Framework.Domain.csproj" />
+    <ProjectReference Include="..\..\Resource\HR.EmployeeContext.Resources\HR.EmployeeContext.Resources.csproj" />
   </ItemGroup>
 
 </Project>

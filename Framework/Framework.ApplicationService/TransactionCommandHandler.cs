@@ -22,8 +22,9 @@ namespace Framework.ApplicationService
                 _commandHandler.Execute(command);
                 unitOfWork.Commit();
             }
-            catch
+            catch(Exception e)
             {
+                
                 unitOfWork.Rollback();
                 throw;
             }

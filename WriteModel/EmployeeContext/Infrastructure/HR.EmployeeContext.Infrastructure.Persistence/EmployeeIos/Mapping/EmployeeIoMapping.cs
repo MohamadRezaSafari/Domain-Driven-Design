@@ -1,11 +1,8 @@
-﻿using Framework.Persistence;
+﻿using System.Data;
+using Framework.Persistence;
 using HR.EmployeeContext.Domain.EmployeeIos;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace HR.EmployeeContext.Infrastructure.Persistence.EmployeeIos.Mapping
 {
@@ -16,7 +13,7 @@ namespace HR.EmployeeContext.Infrastructure.Persistence.EmployeeIos.Mapping
             Initial(builder);
 
             builder.Property(i => i.DateTime).IsRequired();
-            builder.Property(i => i.EmployeeId).IsRequired();
+            builder.Property(i => i.EmployeeId).HasColumnType(SqlDbType.UniqueIdentifier.ToString()).IsRequired();
         }
     }
 }

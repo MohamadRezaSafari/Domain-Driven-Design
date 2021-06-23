@@ -28,5 +28,10 @@ namespace HR.ShiftContext.Facade
         {
             CommandBus.Dispatch(command);
         }
+
+        public void ShiftSetNextShiftId(InOrderShiftCommand command)
+        {
+            CommandBus.Dispatch(command);
+        }
     }
 }

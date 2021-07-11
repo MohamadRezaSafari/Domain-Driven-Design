@@ -1,4 +1,5 @@
-﻿using Framework.Core.ApplicationService;
+﻿using System;
+using Framework.Core.ApplicationService;
 
 
 namespace HR.EmployeeContext.ApplicationService.Contract.Employees
@@ -7,5 +8,6 @@ namespace HR.EmployeeContext.ApplicationService.Contract.Employees
     {
         public string FirstName { get; set; }
         public string LastName { get; set; }
+        public Guid UnitId { get; set; }
     }
 }

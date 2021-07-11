@@ -2,21 +2,27 @@
 using HR.EmployeeContext.ApplicationService.Contract.Employees;
 using HR.EmployeeContext.Domain.Employees;
 using HR.EmployeeContext.Domain.Employees.Services;
+using HR.EmployeeContext.Domain.Employees.Services.ACL;
 
 namespace HR.EmployeeContext.ApplicationService.Employees
 {
     public class EmployeeCreateCommandHandler : ICommandHandler<EmployeeCreateCommand>
     {
-        private readonly IEmployeeRepository _employeeRepository;
+        private readonly IEmployeeRepository employeeRepository;
+        private readonly IEmployeeUnitIdExistsAclService _employeeUnitIdValidateAclService;
 
-        public EmployeeCreateCommandHandler(IEmployeeRepository employeeRepository)
+        public EmployeeCreateCommandHandler(IEmployeeRepository employeeRepository
+            , IEmployeeUnitIdExistsAclService employeeUnitIdValidateAclService)
         {
-            _employeeRepository = employeeRepository;
+            this.employeeRepository = employeeRepository;
+            _employeeUnitIdValidateAclService = employeeUnitIdValidateAclService;
         }
+
         public void Execute(EmployeeCreateCommand command)
         {
-            Employee employee = new Employee(command.FirstName, command.LastName);
-            _employeeRepository.Create(employee);
+            Employee employee = new Employee(employeeRepository, command.FirstName, command.LastName);
+            employee.AddUnitId(_employeeUnitIdValidateAclService, command.UnitId);
+            this.employeeRepository.Create(employee);
         }
     }
 }

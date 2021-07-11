@@ -7,6 +7,7 @@ using Framework.Core.DependencyInjection;
 using Framework.Core.Domain;
 using Framework.Core.Facade;
 using Framework.Core.Persistence;
+using Framework.Persistence;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Framework.DependencyInjection
@@ -16,11 +17,13 @@ namespace Framework.DependencyInjection
         private IServiceCollection _serviceCollection;
         private IAssemblyDiscovery _assemblyDiscovery;
         private readonly string _namespace;
+
         protected RegistrarBase()
         {
             var nameSpaceSpell = typeof(TRegister).Namespace?.Split('.');
             _namespace = nameSpaceSpell?[0] + "." + nameSpaceSpell?[1];
         }
+
         public void Register(IServiceCollection servicesCollection, IAssemblyDiscovery assemblyDiscovery)
         {
             _serviceCollection = servicesCollection;
@@ -32,7 +35,7 @@ namespace Framework.DependencyInjection
             RegisterTransient<IHandler>();
             RegisterTransient<IQueryFacade>();
             RegisterTransient<ICommandFacade>();
-            RegisterTransient<IACLService>();
+            RegisterTransient<IACLService>();            
         }
 
         private void RegisterFramework()
@@ -41,6 +44,7 @@ namespace Framework.DependencyInjection
             _serviceCollection.AddScoped<IUnitOfWork, UnitOfWork>();
             _serviceCollection.AddScoped<IDiContainer, DiContainer>();
             _serviceCollection.AddScoped<ICommandBus, CommandBus>();
+            //_serviceCollection.AddTransient(typeof(IEntityIdGenerator<>), typeof(EntityIdGenerator<>));
         }
 
         private void RegisterTransient<TRegisterBaseType>()

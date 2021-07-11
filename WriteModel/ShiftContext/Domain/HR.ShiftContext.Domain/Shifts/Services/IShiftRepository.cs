@@ -8,12 +8,12 @@ namespace HR.ShiftContext.Domain.Shifts.Services
 {
     public interface IShiftRepository : IRepository
     {
+        List<ShiftSegment> GetShiftSegments(Guid shiftId);
+        Shift GetShiftByShiftSegmentId(Guid shiftSegmentId);
         List<Shift> GetShifts(List<Guid> shiftIds);
         void ShiftCreate(Shift shift);
-        void ShiftTermplateCreate(ShiftTemplate shiftTemplate);
-        List<ShiftTemplate> ShiftTemplateExist(Guid shiftTemplateId);
-
         bool Any(Expression<Func<Shift, bool>> expression);
         Shift GetShiftById(Guid shiftId);
+        bool IsShiftSegmentExist(Guid ShiftSegmentId);
     }
 }

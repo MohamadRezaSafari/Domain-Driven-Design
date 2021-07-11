@@ -1,0 +1,16 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\..\Framework\Framework.Domain\Framework.Domain.csproj" />
+    <ProjectReference Include="..\..\Resource\HR.DefinitionContext.Resources\HR.DefinitionContext.Resources.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Units\Services\" />
+  </ItemGroup>
+
+</Project>

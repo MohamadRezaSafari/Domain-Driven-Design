@@ -6,5 +6,6 @@ namespace HR.ReadModel.Queries.Contracts.Employees
     public interface IEmployeeQueryFacade
     {
         List<Employee> GetAllEmployees();
+        List<EmployeeIo> GetEmployeeIos();
     }
 }

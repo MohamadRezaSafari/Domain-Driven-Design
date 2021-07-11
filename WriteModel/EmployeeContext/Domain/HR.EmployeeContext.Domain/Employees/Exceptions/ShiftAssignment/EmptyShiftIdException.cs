@@ -5,6 +5,6 @@ namespace HR.EmployeeContext.Domain.Employees.Exceptions.ShiftAssignment
 {
     public class EmptyShiftIdException: DomainException
     {
-        public override string Message => ExceptionShiftAssignment.EmptyShiftIdException;
+        public override string Message => ExceptionResource.EmptyShiftIdException;
     }
 }

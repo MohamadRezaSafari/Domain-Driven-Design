@@ -5,6 +5,6 @@ namespace HR.ShiftContext.Domain.Shifts.Services
 {
     public interface IInOrderDuplicationChecker : IDomainService
     {
-        bool isDuplicate(Guid shiftTemplateIdGuid, long nextShiftId);
+        bool isDuplicate(Guid shiftTemplateIdGuid, Guid nextShiftId);
     }
 }

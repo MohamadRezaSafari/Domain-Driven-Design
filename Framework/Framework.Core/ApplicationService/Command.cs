@@ -11,6 +11,6 @@ namespace Framework.Core.ApplicationService
             TimeStamp  = DateTime.Now;
         }
 
-        public DateTime TimeStamp { get; }
+        private DateTime TimeStamp { get; set; }
     }
 }

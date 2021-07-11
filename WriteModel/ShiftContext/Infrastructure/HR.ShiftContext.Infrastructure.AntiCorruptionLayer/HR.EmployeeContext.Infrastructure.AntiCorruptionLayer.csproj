@@ -1,0 +1,18 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Mapster" Version="7.2.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\DefinitionContext\Domain\HR.DefinitionContext.Domain\HR.DefinitionContext.Domain.csproj" />
+    <ProjectReference Include="..\..\..\EmployeeContext\Domain\HR.EmployeeContext.Domain\HR.EmployeeContext.Domain.csproj" />
+    <ProjectReference Include="..\..\..\EmployeeContext\Facade\HR.EmployeeContext.Facade.Contract\HR.EmployeeContext.Facade.Contract.csproj" />
+    <ProjectReference Include="..\..\Domain\HR.ShiftContext.Domain\HR.ShiftContext.Domain.csproj" />
+  </ItemGroup>
+
+</Project>

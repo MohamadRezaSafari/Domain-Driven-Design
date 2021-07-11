@@ -10,6 +10,7 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
     <PackageReference Include="Swashbuckle.AspNetCore" Version="5.6.3" />
+    <PackageReference Include="System.Configuration.ConfigurationManager" Version="5.0.0" />
   </ItemGroup>
 
   <ItemGroup>
@@ -18,6 +19,11 @@
     <ProjectReference Include="..\..\ReadModel\HR.ReadModel.Context\HR.ReadModel.Context.csproj" />
     <ProjectReference Include="..\..\ReadModel\HR.ReadModel.Queries.Contracts\HR.ReadModel.Queries.Contracts.csproj" />
     <ProjectReference Include="..\..\ReadModel\HR.ReadModel.Queries.Facade\HR.ReadModel.Queries.Facade.csproj" />
+    <ProjectReference Include="..\..\WriteModel\DefinitionContext\ApplicationService\HR.DefinitionContext.ApplicationService.Contract\HR.DefinitionContext.ApplicationService.Contract.csproj" />
+    <ProjectReference Include="..\..\WriteModel\DefinitionContext\ApplicationService\HR.DefinitionContext.ApplicationService\HR.DefinitionContext.ApplicationService.csproj" />
+    <ProjectReference Include="..\..\WriteModel\DefinitionContext\Domain\HR.DefinitionContext.Domain.Services\HR.DefinitionContext.Domain.Services.csproj" />
+    <ProjectReference Include="..\..\WriteModel\DefinitionContext\Facade\HR.DefinitionContext.Facade.Contract\HR.DefinitionContext.Facade.Contract.csproj" />
+    <ProjectReference Include="..\..\WriteModel\DefinitionContext\Facade\HR.DefinitionContext.Facade\HR.DefinitionContext.Facade.csproj" />
     <ProjectReference Include="..\..\WriteModel\EmployeeContext\ApplicationService\HR.EmployeeContext.ApplicationService.Contract\HR.EmployeeContext.ApplicationService.Contract.csproj" />
     <ProjectReference Include="..\..\WriteModel\EmployeeContext\ApplicationService\HR.EmployeeContext.ApplicationService\HR.EmployeeContext.ApplicationService.csproj" />
     <ProjectReference Include="..\..\WriteModel\EmployeeContext\Domain\HR.EmployeeContext.Domain.Services\HR.EmployeeContext.Domain.Services.csproj" />
@@ -32,6 +38,7 @@
     <ProjectReference Include="..\..\WriteModel\ShiftContext\Facade\HR.ShiftContext.Facade.Contract\HR.ShiftContext.Facade.Contract.csproj" />
     <ProjectReference Include="..\..\WriteModel\ShiftContext\Facade\HR.ShiftContext.Facade\HR.ShiftContext.Facade.csproj" />
     <ProjectReference Include="..\..\WriteModel\ShiftContext\HR.ShiftContext.Configuration\HR.ShiftContext.Configuration.csproj" />
+    <ProjectReference Include="..\..\WriteModel\ShiftContext\Infrastructure\HR.ShiftContext.Infrastructure.AntiCorruptionLayer\HR.EmployeeContext.Infrastructure.AntiCorruptionLayer.csproj" />
     <ProjectReference Include="..\..\WriteModel\ShiftContext\Infrastructure\HR.ShiftContext.Infrastructure.Persistence\HR.ShiftContext.Infrastructure.Persistence.csproj" />
   </ItemGroup>
 

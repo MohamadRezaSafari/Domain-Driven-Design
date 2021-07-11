@@ -18,11 +18,18 @@ namespace HR.ReadModel.Context.Models
         }
 
         public virtual DbSet<Employee> Employees { get; set; }
+        public virtual DbSet<EmployeeContract> EmployeeContracts { get; set; }
+        public virtual DbSet<EmployeeIo> EmployeeIos { get; set; }
+        public virtual DbSet<Shift> Shifts { get; set; }
+        public virtual DbSet<ShiftAssignment> ShiftAssignments { get; set; }
+        public virtual DbSet<ShiftSegment> ShiftSegments { get; set; }
+        public virtual DbSet<Unit> Units { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             if (!optionsBuilder.IsConfigured)
             {
+#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
                 optionsBuilder.UseSqlServer("Server=.;Database=HR_Developer;Trusted_Connection=True;");
             }
         }
@@ -48,6 +55,88 @@ namespace HR.ReadModel.Context.Models
                     .HasDefaultValueSql("(CONVERT([bit],(1)))");
 
                 entity.Property(e => e.LastName)
+                    .IsRequired()
+                    .HasMaxLength(100);
+
+                entity.Property(e => e.SettlementDate).HasColumnType("datetime");
+            });
+
+            modelBuilder.Entity<EmployeeContract>(entity =>
+            {
+                entity.ToTable("EmployeeContract", "EmployeeContext");
+
+                entity.HasIndex(e => e.EmployeeId, "IX_EmployeeContract_EmployeeId");
+
+                entity.Property(e => e.Id).ValueGeneratedNever();
+
+                entity.HasOne(d => d.Employee)
+                    .WithMany(p => p.EmployeeContracts)
+                    .HasForeignKey(d => d.EmployeeId);
+            });
+
+            modelBuilder.Entity<EmployeeIo>(entity =>
+            {
+                entity.ToTable("EmployeeIo", "EmployeeContext");
+
+                entity.HasIndex(e => e.EmployeeId, "IX_EmployeeIo_EmployeeId");
+
+                entity.HasIndex(e => e.EmployeeId, "IX_EmployeeIo_EmployeeId2");
+
+                entity.Property(e => e.Id).ValueGeneratedNever();
+
+                entity.HasOne(d => d.Employee)
+                    .WithMany(p => p.EmployeeIos)
+                    .HasForeignKey(d => d.EmployeeId);
+            });
+
+            modelBuilder.Entity<Shift>(entity =>
+            {
+                entity.ToTable("Shift", "ShiftContext");
+
+                entity.Property(e => e.Id).ValueGeneratedNever();
+
+                entity.Property(e => e.Title)
+                    .IsRequired()
+                    .HasMaxLength(100);
+            });
+
+            modelBuilder.Entity<ShiftAssignment>(entity =>
+            {
+                entity.ToTable("ShiftAssignment", "EmployeeContext");
+
+                entity.HasIndex(e => e.EmployeeId, "IX_ShiftAssignment_EmployeeId");
+
+                entity.Property(e => e.Id).ValueGeneratedNever();
+
+                entity.HasOne(d => d.Employee)
+                    .WithMany(p => p.ShiftAssignments)
+                    .HasForeignKey(d => d.EmployeeId);
+            });
+
+            modelBuilder.Entity<ShiftSegment>(entity =>
+            {
+                entity.ToTable("ShiftSegment", "ShiftContext");
+
+                entity.HasIndex(e => e.ShiftId, "IX_ShiftSegment_ShiftId");
+
+                entity.Property(e => e.Id).ValueGeneratedNever();
+
+                entity.HasOne(d => d.Shift)
+                    .WithMany(p => p.ShiftSegments)
+                    .HasForeignKey(d => d.ShiftId)
+                    .HasConstraintName("FK_Shift_ShiftSegment");
+            });
+
+            modelBuilder.Entity<Unit>(entity =>
+            {
+                entity.ToTable("Unit", "DefinitionContext");
+
+                entity.HasIndex(e => e.Title, "IX_Unit_Title")
+                    .IsUnique();
+
+                entity.Property(e => e.Id).ValueGeneratedNever();
+
+                entity.Property(e => e.Title)
                     .IsRequired()
                     .HasMaxLength(100);
             });

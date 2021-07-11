@@ -13,7 +13,7 @@ namespace HR.EmployeeContext.Domain.Services.Employees
         }
         public bool IsExists(long EmployeeId)
         {
-            return _employeeRepository.Any(e => e.EmployeeId == EmployeeId && e.IsActive);
+            return _employeeRepository.Any(e => e.EmployeeId == EmployeeId);
         }
     }
 }

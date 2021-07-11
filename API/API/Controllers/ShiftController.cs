@@ -1,7 +1,5 @@
-﻿using HR.EmployeeContext.ApplicationService.Contract.Employees;
-using HR.EmployeeContext.Facade.Contract;
+﻿using HR.EmployeeContext.Facade.Contract;
 using HR.ShiftContext.ApplicationService.Contract.Shifts;
-using HR.ShiftContext.ApplicationService.Contract.ShiftTemplates;
 using HR.ShiftContext.Facade.Contract;
 using Microsoft.AspNetCore.Mvc;
 
@@ -19,7 +17,14 @@ namespace API.Controllers
             this.employeeCommandFacade = employeeCommandFacade;
         }
 
-     
+
+        [HttpPost]
+        [Route("ShiftSegmentCreate")]
+        public void ShiftSegmentCreate(ShiftSegmentCreateCommand command)
+        {
+            shiftCommandFacade.ShiftSegmentCreate(command);
+        }
+
         [HttpPost]
         [Route("ShiftCreate")]
         public void ShiftCreate(ShiftCreateCommand command)
@@ -27,21 +32,15 @@ namespace API.Controllers
             shiftCommandFacade.ShiftCreate(command);
         }
 
-        [HttpPost]
-        [Route("ShiftTeamplteCreate")]
-        public void ShiftTeamplteCreate(ShiftTemplateCreateCommand command)
-        {
-            shiftCommandFacade.ShiftTemplateCreate(command);
-        }
 
         [HttpPost]
-        [Route("ShiftSetNextShift")]
-        public void ShiftSetNextShift(InOrderShiftCommand command)
+        [Route("ShiftSegmentInOrder")]
+        public void ShiftSegmentInOrder(ShiftSegmentInOrderCommand command)
         {
-            shiftCommandFacade.ShiftSetNextShiftId(command);
+            shiftCommandFacade.ShiftSegmentInOrder(command);
         }
-        
 
-        
+
+
     }
 }

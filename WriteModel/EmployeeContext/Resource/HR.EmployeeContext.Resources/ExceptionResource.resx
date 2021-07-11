@@ -118,18 +118,69 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="DateTimeRequiredException" xml:space="preserve">
-    <value> تاریخ نمی تواند خالی باشد</value>
+    <value>تاریخ نمی تواند خالی باشد</value>
   </data>
   <data name="EmployeeIdRequiredException" xml:space="preserve">
-    <value>کد پرسنلی نمی تواند خالی باشد</value>
+    <value>کد پرسنلی موجود نمی باشد</value>
   </data>
   <data name="EmployeeIsExistsException" xml:space="preserve">
-    <value>اطلاعات پرسنل یافت نشد</value>
+    <value>پرسنل موجود نمی باشد</value>
+  </data>
+  <data name="EmployeeIsNotActiveException" xml:space="preserve">
+    <value>کد پرسنلی در سیستم فعال نمی باشد</value>
+  </data>
+  <data name="EmployeeStartTimeException" xml:space="preserve">
+    <value>ساعت شروع نامعتبر می باشد</value>
+  </data>
+  <data name="EmptyEmployeeContractEndTimeException" xml:space="preserve">
+    <value>تاریخ پایان قرارداد نباید خالی باشد</value>
+  </data>
+  <data name="EmptyEmployeeContractStartTimeException" xml:space="preserve">
+    <value>تاریخ شروع قرارداد نباید خالی باشد</value>
+  </data>
+  <data name="EmptyEmployeeContractUnitIdException" xml:space="preserve">
+    <value>واحد سازمانی نباید خالی باشد</value>
+  </data>
+  <data name="EmptyEmployeeIdException" xml:space="preserve">
+    <value>کد پرسنلی نمی تواند خالی باشد</value>
+  </data>
+  <data name="EmptyShiftAssignedException" xml:space="preserve">
+    <value>قبل از انعقاد قرار داد باید به پرسنل شیف تخصیص داده شود</value>
+  </data>
+  <data name="EmptyShiftIdException" xml:space="preserve">
+    <value>کد پرسنلی نمی تواند خالی باشد</value>
   </data>
   <data name="FirstNameRequiredException" xml:space="preserve">
     <value>نام نمی تواند خالی باشد</value>
   </data>
+  <data name="HolidayException" xml:space="preserve">
+    <value>امکان تردد در روز تعطیل وجود ندارد</value>
+  </data>
+  <data name="InvalidDateTimeAccordingToShiftSegmentException" xml:space="preserve">
+    <value>ساعت تردد متناسب با شیفت تخصیص داده شده نیست</value>
+  </data>
+  <data name="InvalidEmployeeIO" xml:space="preserve">
+    <value>تردد مورد نظر خارج از شیفت انتصابی است</value>
+  </data>
+  <data name="InvalidEmployeeSettlementDateException" xml:space="preserve">
+    <value>تاریخ اتمام قرارداد بزرگتر یا مساوی  تاریخ تسویه باشد</value>
+  </data>
   <data name="LastNameRequiredException" xml:space="preserve">
-    <value>نام خانوادگی نمی تواند خالی باشد</value>
+    <value>نام خانوادگی نباید خالی باشد</value>
+  </data>
+  <data name="ShiftIdDontExistException" xml:space="preserve">
+    <value>شیفت نباید خالی باشد</value>
+  </data>
+  <data name="ShiftIdNotExistsException" xml:space="preserve">
+    <value>شیفت مورد نظر نا معتبر است</value>
+  </data>
+  <data name="StartTimeIsLowException" xml:space="preserve">
+    <value>ساعت شروع نامعتبر است</value>
+  </data>
+  <data name="StartTimeShouldBeLessThanException" xml:space="preserve">
+    <value>تاریخ شروع نباید بزرگتر از تاریخ پایان باشد</value>
+  </data>
+  <data name="UnitIdNotExistsException" xml:space="preserve">
+    <value>کد واحد نامعتبر می باشد</value>
   </data>
 </root>

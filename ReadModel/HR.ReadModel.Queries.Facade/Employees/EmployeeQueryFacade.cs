@@ -19,5 +19,10 @@ namespace HR.ReadModel.Queries.Facade.Employees
         {
             return context.Employees.ToList();
         }
+
+        public List<EmployeeIo> GetEmployeeIos()
+        {
+            return context.EmployeeIos.ToList();
+        }
     }
 }

@@ -2,7 +2,6 @@
 using Framework.Core.ApplicationService;
 using Framework.Facade;
 using HR.ShiftContext.ApplicationService.Contract.Shifts;
-using HR.ShiftContext.ApplicationService.Contract.ShiftTemplates;
 using HR.ShiftContext.Facade.Contract;
 using System;
 using System.Collections.Generic;
@@ -19,19 +18,22 @@ namespace HR.ShiftContext.Facade
 
         }
 
+        public void ShiftSegmentCreate(ShiftSegmentCreateCommand command)
+        {
+            CommandBus.Dispatch(command);
+        }
+
         public void ShiftCreate(ShiftCreateCommand command)
         {
             CommandBus.Dispatch(command);
         }
 
-        public void ShiftTemplateCreate(ShiftTemplateCreateCommand command)
+
+        public void ShiftSegmentInOrder(ShiftSegmentInOrderCommand command)
         {
             CommandBus.Dispatch(command);
         }
 
-        public void ShiftSetNextShiftId(InOrderShiftCommand command)
-        {
-            CommandBus.Dispatch(command);
-        }
+        
     }
 }

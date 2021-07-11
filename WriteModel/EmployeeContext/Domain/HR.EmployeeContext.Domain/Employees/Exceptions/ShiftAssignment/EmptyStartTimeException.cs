@@ -5,6 +5,6 @@ namespace HR.EmployeeContext.Domain.Employees.Exceptions.ShiftAssignment
 {
     public class EmptyStartTimeException : DomainException
     {
-        public override string Message => ExceptionShiftAssignment.EmployeeStartTimeException;
+        public override string Message => ExceptionResource.EmployeeStartTimeException;
     }
 }

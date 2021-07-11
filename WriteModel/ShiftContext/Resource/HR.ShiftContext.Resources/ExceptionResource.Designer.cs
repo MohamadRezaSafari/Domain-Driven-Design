@@ -61,6 +61,15 @@ namespace HR.ShiftContext.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to برای شیفت های ثابت  این امکان وجود ندارد.
+        /// </summary>
+        public static string InvalidInOrderSingleShiftSegmentException {
+            get {
+                return ResourceManager.GetString("InvalidInOrderSingleShiftSegmentException", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to ساعت شروع شیفت باید کوچک تر از ساعت پایان شیفت باشد.
         /// </summary>
         public static string InvalidShiftTimeRangeException {
@@ -106,6 +115,15 @@ namespace HR.ShiftContext.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to در شیفت های متوالی غیر تعطیل، ساعت شروع شیفت بعدی باید بزرگتر از ساعت پایان شیفت قبلی آن باشد..
+        /// </summary>
+        public static string NextShiftSegmentStartTimeGreaterThanShiftSegmentEndTimeException {
+            get {
+                return ResourceManager.GetString("NextShiftSegmentStartTimeGreaterThanShiftSegmentEndTimeException", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to کد الگوی شیفت بعدی مغایرت دارد.
         /// </summary>
         public static string NextShiftTemplateIdConflictException {
@@ -117,9 +135,36 @@ namespace HR.ShiftContext.Resources {
         /// <summary>
         ///   Looks up a localized string similar to الگوی شیفت نامعتبر است.
         /// </summary>
-        public static string ShiftTemplateExistsException {
+        public static string ShiftExistsException {
             get {
-                return ResourceManager.GetString("ShiftTemplateExistsException", resourceCulture);
+                return ResourceManager.GetString("ShiftExistsException", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to کد الگوی شیفت الزامی است.
+        /// </summary>
+        public static string ShiftIdRequiredException {
+            get {
+                return ResourceManager.GetString("ShiftIdRequiredException", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to شناسه شیف بعدی نمی تواند شناسه شیف فعلی باشد.
+        /// </summary>
+        public static string ShiftSegmentInOrderInvalidSelfRefrenceException {
+            get {
+                return ResourceManager.GetString("ShiftSegmentInOrderInvalidSelfRefrenceException", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to شیفت های با الگوی شیفت یکسان می توانند به یکدیگر ارتباط داده شوند.
+        /// </summary>
+        public static string ShiftSegmentInOrderToAnotherShiftException {
+            get {
+                return ResourceManager.GetString("ShiftSegmentInOrderToAnotherShiftException", resourceCulture);
             }
         }
         

@@ -117,6 +117,9 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="InvalidInOrderSingleShiftSegmentException" xml:space="preserve">
+    <value>برای شیفت های ثابت  این امکان وجود ندارد</value>
+  </data>
   <data name="InvalidShiftTimeRangeException" xml:space="preserve">
     <value>ساعت شروع شیفت باید کوچک تر از ساعت پایان شیفت باشد</value>
   </data>
@@ -132,11 +135,23 @@
   <data name="NextShiftReservedException" xml:space="preserve">
     <value>شیفت بعدی قبلا رزرو شده</value>
   </data>
+  <data name="NextShiftSegmentStartTimeGreaterThanShiftSegmentEndTimeException" xml:space="preserve">
+    <value>در شیفت های متوالی غیر تعطیل، ساعت شروع شیفت بعدی باید بزرگتر از ساعت پایان شیفت قبلی آن باشد.</value>
+  </data>
   <data name="NextShiftTemplateIdConflictException" xml:space="preserve">
     <value>کد الگوی شیفت بعدی مغایرت دارد</value>
   </data>
-  <data name="ShiftTemplateExistsException" xml:space="preserve">
+  <data name="ShiftExistsException" xml:space="preserve">
     <value>الگوی شیفت نامعتبر است</value>
+  </data>
+  <data name="ShiftIdRequiredException" xml:space="preserve">
+    <value>کد الگوی شیفت الزامی است</value>
+  </data>
+  <data name="ShiftSegmentInOrderInvalidSelfRefrenceException" xml:space="preserve">
+    <value>شناسه شیف بعدی نمی تواند شناسه شیف فعلی باشد</value>
+  </data>
+  <data name="ShiftSegmentInOrderToAnotherShiftException" xml:space="preserve">
+    <value>شیفت های با الگوی شیفت یکسان می توانند به یکدیگر ارتباط داده شوند</value>
   </data>
   <data name="ShiftTemplateIdRequiredException" xml:space="preserve">
     <value>کد الگوی شیفت الزامی است</value>

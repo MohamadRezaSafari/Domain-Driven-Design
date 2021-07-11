@@ -12,6 +12,7 @@
     <ProjectReference Include="..\Framework.ApplicationService\Framework.ApplicationService.csproj" />
     <ProjectReference Include="..\Framework.AssemblyHelper\Framework.AssemblyHelper\Framework.AssemblyHelper.csproj" />
     <ProjectReference Include="..\Framework.Core\Framework.Core.csproj" />
+    <ProjectReference Include="..\Framework.Persistence\Framework.Persistence.csproj" />
   </ItemGroup>
 
 </Project>

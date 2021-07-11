@@ -14,11 +14,7 @@ namespace HR.ShiftContext.Infrastructure.Persistence.Shifts.Mapping
             Initial(builder);
 
             builder.Property(i => i.Title).IsRequired().HasMaxLength(100);
-            builder.Property(i => i.ShiftTemplateId).IsRequired();
-            builder.Property(i => i.StartTime).IsRequired();
-            builder.Property(i => i.EndTime).IsRequired();
-            builder.Property(i => i.NextShiftId).HasColumnType(SqlDbType.UniqueIdentifier.ToString())
-                .IsRequired(false);
+            
 
             //builder
             //    .HasOne<ShiftTemplate>()
@@ -26,7 +22,6 @@ namespace HR.ShiftContext.Infrastructure.Persistence.Shifts.Mapping
             //    .HasForeignKey(i => i.ShiftTemplateId)
             //    .HasConstraintName("FK_Shift_ShiftTemplate");
 
-           
 
             //builder.            HasOne<Customer>()
             //    .WithMany(c => c.Addresses)

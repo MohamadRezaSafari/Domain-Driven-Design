@@ -22,6 +22,8 @@
   <ItemGroup>
     <ProjectReference Include="..\..\Framework\Framework.AssemblyHelper\Framework.AssemblyHelper\Framework.AssemblyHelper.csproj" />
     <ProjectReference Include="..\..\Framework\Framework.Persistence\Framework.Persistence.csproj" />
+    <ProjectReference Include="..\DefinitionContext\HR.DefinitionContext.Configuration\HR.DefinitionContext.Configuration.csproj" />
+    <ProjectReference Include="..\DefinitionContext\Infrastructure\HR.DefinitionContext.Infrastructure.Persistence\HR.DefinitionContext.Infrastructure.Persistence.csproj" />
     <ProjectReference Include="..\EmployeeContext\HR.EmployeeContext.Configuration\HR.EmployeeContext.Configuration.csproj" />
     <ProjectReference Include="..\EmployeeContext\Infrastructure\HR.EmployeeContext.Infrastructure.Persistence\HR.EmployeeContext.Infrastructure.Persistence.csproj" />
     <ProjectReference Include="..\ShiftContext\HR.ShiftContext.Configuration\HR.ShiftContext.Configuration.csproj" />

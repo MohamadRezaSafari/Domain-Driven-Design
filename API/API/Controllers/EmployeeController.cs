@@ -1,5 +1,4 @@
-﻿using HR.EmployeeContext.ApplicationService.Contract.EmployeeIos;
-using HR.EmployeeContext.ApplicationService.Contract.Employees;
+﻿using HR.EmployeeContext.ApplicationService.Contract.Employees;
 using HR.EmployeeContext.Facade.Contract;
 using HR.ReadModel.Context.Models;
 using HR.ReadModel.Queries.Contracts.Employees;
@@ -12,22 +11,48 @@ namespace API.Controllers
     [Route("[controller]")]
     public class EmployeeController : Controller
     {
-        private readonly IEmployeeIOCommandFacade employeeIoCommandFacade;
+      
         private readonly IEmployeeCommandFacade employeeCommandFacade;
         private readonly IEmployeeQueryFacade employeeQueryFacade;
 
-        public EmployeeController(IEmployeeIOCommandFacade employeeIoCommandFacade, IEmployeeCommandFacade employeeCommandFacade, IEmployeeQueryFacade employeeQueryFacade)
+        public EmployeeController( IEmployeeCommandFacade employeeCommandFacade, IEmployeeQueryFacade employeeQueryFacade)
         {
-            this.employeeIoCommandFacade = employeeIoCommandFacade;
             this.employeeCommandFacade = employeeCommandFacade;
             this.employeeQueryFacade = employeeQueryFacade;
         }
+
+
+        [HttpGet]
+        [Route("GetEmployeeIos")]
+        public void GetEmployeeIos()
+        {
+            employeeQueryFacade.GetEmployeeIos();
+        }
+
+
+
+        [HttpPost]
+        [Route("EmployeeReHire")]
+        public void EmployeeReHire(EmployeeReHireCommand command)
+        {
+            employeeCommandFacade.EmployeeReHire(command);
+        }
+
+
+        [HttpDelete]
+        [Route("EmployeeSettlement")]
+        public void EmployeeSettlement(EmployeeSettlementCommand command)
+        {
+            employeeCommandFacade.EmployeeSettlement(command);
+        }
+        
+
 
         [HttpPost]
         [Route("EmployeeIoCreate")]
         public void EmployeeIoCreate([FromBody] EmployeeIOCreateCommand command)
         {
-            employeeIoCommandFacade.CreateEmployeeIO(command);
+            employeeCommandFacade.CreateEmployeeIO(command);
         }
 
 
@@ -66,6 +91,13 @@ namespace API.Controllers
         public void AssignShift(ShiftAssignmentCommend command)
         {
             employeeCommandFacade.AssignShift(command);
+        }
+
+        [HttpPost]
+        [Route("EmployeeContract")]
+        public void CreateEmployeeContract(EmployeeContractCreateCommand command)
+        {
+            employeeCommandFacade.ConcludeEmployeeContract(command);
         }
     }
 }

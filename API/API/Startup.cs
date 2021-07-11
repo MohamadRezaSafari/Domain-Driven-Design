@@ -13,6 +13,9 @@ using HR.ReadModel.Context.Models;
 using Microsoft.EntityFrameworkCore;
 using System;
 using Microsoft.OpenApi.Any;
+using System.Configuration;
+using HR.EmployeeContext.Facade.Contract;
+using HR.EmployeeContext.Infrastructure.AntiCorruptionLayer.Shifts;
 
 namespace API
 {
@@ -25,14 +28,13 @@ namespace API
 
         public IConfiguration Configuration { get; }
 
-     
+
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers()
                 .AddJsonOptions(options =>
                     options.JsonSerializerOptions.Converters.Add(new TimeSpanToStringConverter()));
 
-            //services.AddControllers();
             var assemblyDiscovery = new AssemblyDiscovery("HR*.dll");
             var registrars = assemblyDiscovery.DiscoverInstances<IRegistrar>("HR").ToList();
             foreach (var registrar in registrars)
@@ -42,14 +44,13 @@ namespace API
 
             services.AddDbContext<IDbContext, HRDbContext>(op =>
             {
-                op.UseSqlServer("Data Source = 192.168.62.142; Initial Catalog = HR_Developer; ; User Id = saleadmin; Password = 990002; ");
-
+                op.UseSqlServer(Configuration.GetConnectionString("HR_Developer"));
             });
             services.AddDbContext<HR_DeveloperContext>(op =>
             {
-                op.UseSqlServer("Data Source = 192.168.62.142; Initial Catalog = HR_Developer; ;User Id = saleadmin; Password=990002;");
-
+                op.UseSqlServer(Configuration.GetConnectionString("HR_Developer"));
             });
+
 
             services.AddSwaggerGen(c =>
             {
@@ -60,10 +61,9 @@ namespace API
                     Example = new OpenApiString("00:00:00")
                 });
             });
-
         }
 
-       
+
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             if (env.IsDevelopment())

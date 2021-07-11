@@ -1,12 +1,9 @@
 ﻿using Framework.Core.Domain;
 using Framework.Domain;
 using HR.ShiftContext.Domain.Shifts.Exceptions;
-using HR.ShiftContext.Domain.ShiftTemplates.Exceptions;
-using HR.ShiftContext.Domain.ShiftTemplates.Services;
 using System;
 using HR.ShiftContext.Domain.Shifts.Services;
 using System.Collections.Generic;
-using HR.ShiftContext.Domain.ShiftTemplates;
 using System.Linq.Expressions;
 using System.Linq;
 
@@ -14,106 +11,68 @@ namespace HR.ShiftContext.Domain.Shifts
 {
     public class Shift : EntityBase, IAggregateRoot
     {
-        private readonly IShiftTemplateExists shiftTemplateExists;
-
         protected Shift() { }
 
-        public Shift(string title, TimeSpan startTime, TimeSpan endTime, Guid? nextShift, IShiftTemplateExists shiftTemplateExists)
+        public Shift(string title)
         {
-            this.shiftTemplateExists = shiftTemplateExists;
-
             SetTitle(title);
-            //SetShiftTemplateId(shiftTemplateId, shiftTemplateExists);
-            SetTime(startTime, endTime);
-            NextShiftId = nextShift;
         }
 
-        private void SetTime(TimeSpan startTime, TimeSpan endTime)
+
+        public void AddShiftSegment(ShiftSegment shiftSegment)
         {
-            if (startTime == null && endTime == null)
-                throw new ShiftTimeRequiredException();
-
-            if (startTime > endTime)
-                throw new InvalidShiftTimeRangeException();
-
-            StartTime = startTime;
-            EndTime = endTime;
+            this.ShiftSegments.Add(shiftSegment);
         }
 
-        private void SetShiftTemplateId(Guid shiftTemplateId, IShiftTemplateExists shiftTemplateExists)
-        {
-            if (shiftTemplateId == null)
-                throw new ShiftTemplateIdRequiredException();
-
-            if (!shiftTemplateExists.Exist(shiftTemplateId))
-                throw new ShiftTemplateExistsException();
-
-            ShiftTemplateId = shiftTemplateId;
-        }
 
         private void SetTitle(string title)
         {
-            if (String.IsNullOrWhiteSpace(title))
+            if (string.IsNullOrWhiteSpace(title))
                 throw new ShiftTitleRequiredException();
 
             Title = title;
         }
 
 
-        public void SetInOrderNextShiftId(IShiftExists shiftExists, IInOrderDuplicationChecker inOrderDuplicationChecker, Shift nextShift)
+        public void SetInOrderNextShiftSegmentId(IInOrderDuplicationChecker inOrderDuplicationChecker, Guid shiftSegmentId, Shift nextShiftSegment, Guid nextShiftSegmentId)
         {
+            if (this.ShiftSegments.Count() <= 1)
+                throw new InvalidInOrderSingleShiftSegmentException();
 
-            //if (!shiftExists.Exist(nextShift.Id))
-            //    throw new NextShiftNotExistsException();
+            if (this.Id == nextShiftSegmentId)
+                throw new NextShiftRecursiveException();
 
-            //if (inOrderDuplicationChecker.isDuplicate(this.ShiftTemplateId, nextShift.ShiftId))
-            //    throw new NextShiftReservedException();
+            if (!this.ShiftSegments.Any(i => i.Id == nextShiftSegmentId))
+                throw new ShiftSegmentInOrderToAnotherShiftException();
 
-            //if (this.ShiftId == nextShift.ShiftId)
-            //    throw new NextShiftRecursiveException();
+            if (this.ShiftSegments.First(i => i.Id == shiftSegmentId).Id == nextShiftSegmentId)
+                throw new ShiftSegmentInOrderInvalidSelfRefrenceException();
 
-            //if (this.ShiftTemplateId != nextShift.ShiftTemplateId)
-            //    throw new NextShiftTemplateIdConflictException();
+            if (inOrderDuplicationChecker.isDuplicate(this.Id, nextShiftSegmentId))
+                throw new NextShiftReservedException();
 
-            //if ((nextShift.StartTime.TotalSeconds != 0 || nextShift.EndTime.TotalSeconds != 0)
-            //        && this.EndTime > nextShift.StartTime)
-            //    throw new MissMatchNextShiftStartTimeException();
+            var currentShiftSegmentEndTime = this.ShiftSegments.First(i => i.Id == shiftSegmentId).EndTime;
+            var nextShiftSegmentStartTime = nextShiftSegment.ShiftSegments.First(i => i.Id == nextShiftSegmentId).StartTime;
 
-            //this.NextShift = nextShift.ShiftId;
+            if (
+                (currentShiftSegmentEndTime.TotalSeconds != 0 && nextShiftSegmentStartTime.TotalSeconds != 0)
+                &&
+                (currentShiftSegmentEndTime > nextShiftSegmentStartTime)
+            )
+                throw new NextShiftSegmentStartTimeGreaterThanShiftSegmentEndTimeException();
+
+            this.ShiftSegments.First(i => i.Id == shiftSegmentId).NextShiftId = nextShiftSegmentId;
         }
 
 
-     
+
         public string Title { get; set; }
-        public Guid ShiftTemplateId { get; set; }
-        public TimeSpan StartTime { get; set; }
-        public TimeSpan EndTime { get; set; }
-        public Guid? NextShiftId { get; set; }
-        public ICollection<ShiftTemplate> ShiftTemplates { get; private set; } = new HashSet<ShiftTemplate>();
+        public ICollection<ShiftSegment> ShiftSegments { get; private set; } = new HashSet<ShiftSegment>();
 
 
-        public void AddShiftTemplate(string shiftTemplateTitle)
+        public IEnumerable<Expression<Func<Shift, object>>> GetAggregateExpression()
         {
-            var shiftTampltes = this.ShiftTemplates.Where(i => i.Title == shiftTemplateTitle).ToList();
-
-            if (shiftTampltes.Count() == 0)
-            {
-                var shiftTemplate = new ShiftTemplate(shiftTemplateTitle);
-                ShiftTemplates.Add(shiftTemplate);
-                this.ShiftTemplateId = shiftTemplate.Id;
-            }
-            else
-            {
-                this.ShiftTemplateId = shiftTampltes.First().Id;
-            }
-        }
-
-
-
-        public IEnumerable<Expression<Func<Shift, object>>> GetAggregateExpressions()
-        {
-            //yield return null;
-            yield return e => e.ShiftTemplates;
+            yield return i => i.ShiftSegments;
         }
     }
 }

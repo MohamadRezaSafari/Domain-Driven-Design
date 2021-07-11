@@ -19,6 +19,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\..\..\Framework\Framework.Persistence\Framework.Persistence.csproj" />
+    <ProjectReference Include="..\..\..\DefinitionContext\Domain\HR.DefinitionContext.Domain\HR.DefinitionContext.Domain.csproj" />
     <ProjectReference Include="..\..\Domain\HR.EmployeeContext.Domain\HR.EmployeeContext.Domain.csproj" />
   </ItemGroup>
 

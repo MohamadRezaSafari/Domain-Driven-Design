@@ -11,10 +11,9 @@ namespace HR.EmployeeContext.Infrastructure.Persistence.Employees.Mapping
         {
             Initial(builder);
 
-            //builder.Property(i => i.EmployeeId).IsRequired();
-            builder.Property(i => i.StartTime).IsRequired();
-            builder.Property(i => i.EndTime).HasDefaultValue(null);
-            builder.Property(i => i.ShiftId).IsRequired();
+            builder.Property(i => i.StartDate).IsRequired();
+            builder.Property(i => i.EndDate).HasDefaultValue(null);
+            builder.Property(i => i.ShiftSegmentId).IsRequired(false);
         }
     }
 }

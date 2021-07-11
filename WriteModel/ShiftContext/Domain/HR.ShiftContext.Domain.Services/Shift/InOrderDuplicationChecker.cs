@@ -1,20 +1,21 @@
 ﻿using System;
+using System.Linq;
 using HR.ShiftContext.Domain.Shifts.Services;
 
 namespace HR.ShiftContext.Domain.Services.Shift
 {
-    public class InOrderDuplicationChecker: IInOrderDuplicationChecker
+    public class InOrderDuplicationChecker : IInOrderDuplicationChecker
     {
-        private readonly IShiftRepository _shiftRepository;
+        private readonly IShiftRepository shiftRepository;
 
         public InOrderDuplicationChecker(IShiftRepository shiftRepository)
         {
-            _shiftRepository = shiftRepository;
+            this.shiftRepository = shiftRepository;
         }
-        public bool isDuplicate(Guid shiftTemplateIdGuid, long nextShiftId)
+
+        public bool isDuplicate(Guid shiftId, Guid nextShiftId)
         {
-            return true;
-            //return _shiftRepository.Any(sh => sh.ShiftTemplateId == shiftTemplateIdGuid && sh.NextShift == nextShiftId);
+            return shiftRepository.Any(sh => sh.Id == shiftId && sh.ShiftSegments.Select(a => a.NextShiftId).Contains(nextShiftId));
         }
     }
 }

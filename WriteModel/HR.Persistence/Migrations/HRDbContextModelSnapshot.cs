@@ -19,22 +19,22 @@ namespace HR.Persistence.Migrations
                 .HasAnnotation("ProductVersion", "5.0.7")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-            modelBuilder.Entity("HR.EmployeeContext.Domain.EmployeeIos.EmployeeIo", b =>
+            modelBuilder.Entity("HR.DefinitionContext.Domain.Units.Unit", b =>
                 {
                     b.Property<Guid>("Id")
                         .HasColumnType("UniqueIdentifier");
 
-                    b.Property<DateTime>("DateTime")
-                        .HasColumnType("datetime2");
-
-                    b.Property<Guid>("EmployeeId")
-                        .HasColumnType("UniqueIdentifier");
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("EmployeeId");
+                    b.HasIndex("Title")
+                        .IsUnique();
 
-                    b.ToTable("EmployeeIo", "EmployeeContext");
+                    b.ToTable("Unit", "DefinitionContext");
                 });
 
             modelBuilder.Entity("HR.EmployeeContext.Domain.Employees.Employee", b =>
@@ -62,9 +62,57 @@ namespace HR.Persistence.Migrations
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
 
+                    b.Property<DateTime?>("SettlementDate")
+                        .HasColumnType("DateTime");
+
+                    b.Property<Guid?>("UnitId")
+                        .HasColumnType("uniqueidentifier");
+
                     b.HasKey("Id");
 
                     b.ToTable("Employee", "EmployeeContext");
+                });
+
+            modelBuilder.Entity("HR.EmployeeContext.Domain.Employees.EmployeeContract", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .HasColumnType("UniqueIdentifier");
+
+                    b.Property<Guid?>("EmployeeId")
+                        .HasColumnType("UniqueIdentifier");
+
+                    b.Property<DateTime>("EndDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("StartDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<Guid>("UnitId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("EmployeeId");
+
+                    b.ToTable("EmployeeContract", "EmployeeContext");
+                });
+
+            modelBuilder.Entity("HR.EmployeeContext.Domain.Employees.EmployeeIo", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .HasColumnType("UniqueIdentifier");
+
+                    b.Property<DateTime>("DateTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<Guid>("EmployeeId")
+                        .HasColumnType("UniqueIdentifier");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("EmployeeId");
+
+                    b.ToTable("EmployeeIo", "EmployeeContext");
                 });
 
             modelBuilder.Entity("HR.EmployeeContext.Domain.Employees.ShiftAssignment", b =>
@@ -75,13 +123,13 @@ namespace HR.Persistence.Migrations
                     b.Property<Guid?>("EmployeeId")
                         .HasColumnType("UniqueIdentifier");
 
-                    b.Property<DateTime?>("EndTime")
+                    b.Property<DateTime?>("EndDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<Guid>("ShiftId")
+                    b.Property<Guid?>("ShiftSegmentId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<DateTime>("StartTime")
+                    b.Property<DateTime>("StartDate")
                         .HasColumnType("datetime2");
 
                     b.HasKey("Id");
@@ -91,42 +139,10 @@ namespace HR.Persistence.Migrations
                     b.ToTable("ShiftAssignment", "EmployeeContext");
                 });
 
-            modelBuilder.Entity("HR.ShiftContext.Domain.ShiftTemplates.ShiftTemplate", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .HasColumnType("UniqueIdentifier");
-
-                    b.Property<Guid?>("ShiftId")
-                        .HasColumnType("UniqueIdentifier");
-
-                    b.Property<string>("Title")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("ShiftId");
-
-                    b.ToTable("ShiftTemplate", "ShiftContext");
-                });
-
             modelBuilder.Entity("HR.ShiftContext.Domain.Shifts.Shift", b =>
                 {
                     b.Property<Guid>("Id")
                         .HasColumnType("UniqueIdentifier");
-
-                    b.Property<TimeSpan>("EndTime")
-                        .HasColumnType("time");
-
-                    b.Property<Guid?>("NextShiftId")
-                        .HasColumnType("UniqueIdentifier");
-
-                    b.Property<Guid>("ShiftTemplateId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<TimeSpan>("StartTime")
-                        .HasColumnType("time");
 
                     b.Property<string>("Title")
                         .IsRequired()
@@ -138,7 +154,38 @@ namespace HR.Persistence.Migrations
                     b.ToTable("Shift", "ShiftContext");
                 });
 
-            modelBuilder.Entity("HR.EmployeeContext.Domain.EmployeeIos.EmployeeIo", b =>
+            modelBuilder.Entity("HR.ShiftContext.Domain.Shifts.ShiftSegment", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .HasColumnType("UniqueIdentifier");
+
+                    b.Property<TimeSpan>("EndTime")
+                        .HasColumnType("time");
+
+                    b.Property<Guid?>("NextShiftId")
+                        .HasColumnType("UniqueIdentifier");
+
+                    b.Property<Guid>("ShiftId")
+                        .HasColumnType("UniqueIdentifier");
+
+                    b.Property<TimeSpan>("StartTime")
+                        .HasColumnType("time");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ShiftId");
+
+                    b.ToTable("ShiftSegment", "ShiftContext");
+                });
+
+            modelBuilder.Entity("HR.EmployeeContext.Domain.Employees.EmployeeContract", b =>
+                {
+                    b.HasOne("HR.EmployeeContext.Domain.Employees.Employee", null)
+                        .WithMany("EmployeeContracts")
+                        .HasForeignKey("EmployeeId");
+                });
+
+            modelBuilder.Entity("HR.EmployeeContext.Domain.Employees.EmployeeIo", b =>
                 {
                     b.HasOne("HR.EmployeeContext.Domain.Employees.Employee", null)
                         .WithMany("EmployeeIos")
@@ -154,15 +201,20 @@ namespace HR.Persistence.Migrations
                         .HasForeignKey("EmployeeId");
                 });
 
-            modelBuilder.Entity("HR.ShiftContext.Domain.ShiftTemplates.ShiftTemplate", b =>
+            modelBuilder.Entity("HR.ShiftContext.Domain.Shifts.ShiftSegment", b =>
                 {
                     b.HasOne("HR.ShiftContext.Domain.Shifts.Shift", null)
-                        .WithMany("ShiftTemplates")
-                        .HasForeignKey("ShiftId");
+                        .WithMany("ShiftSegments")
+                        .HasForeignKey("ShiftId")
+                        .HasConstraintName("FK_Shift_ShiftSegment")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("HR.EmployeeContext.Domain.Employees.Employee", b =>
                 {
+                    b.Navigation("EmployeeContracts");
+
                     b.Navigation("EmployeeIos");
 
                     b.Navigation("ShiftAssignments");
@@ -170,7 +222,7 @@ namespace HR.Persistence.Migrations
 
             modelBuilder.Entity("HR.ShiftContext.Domain.Shifts.Shift", b =>
                 {
-                    b.Navigation("ShiftTemplates");
+                    b.Navigation("ShiftSegments");
                 });
 #pragma warning restore 612, 618
         }

@@ -1,5 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using HR.ReadModel.Context.Models;
+using HR.ReadModel.Queries.Contracts.Employees.DataContracts;
+using HR.ReadModel.Queries.Contracts.Employees.DataContracts.Employees.EmployeePerformance;
 
 namespace HR.ReadModel.Queries.Contracts.Employees
 {
@@ -7,5 +10,6 @@ namespace HR.ReadModel.Queries.Contracts.Employees
     {
         List<Employee> GetAllEmployees();
         List<EmployeeIo> GetEmployeeIos();
+        List<EmployeePerformanceSegmentDto> CalculatePerformance(Guid employeeId, DateTime fromDate, DateTime toDate);
     }
 }

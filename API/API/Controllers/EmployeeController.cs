@@ -1,9 +1,11 @@
-﻿using HR.EmployeeContext.ApplicationService.Contract.Employees;
+﻿using System;
+using HR.EmployeeContext.ApplicationService.Contract.Employees;
 using HR.EmployeeContext.Facade.Contract;
 using HR.ReadModel.Context.Models;
 using HR.ReadModel.Queries.Contracts.Employees;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
+using HR.ReadModel.Queries.Contracts.Employees.DataContracts.Employees.EmployeePerformance;
 
 namespace API.Controllers
 {
@@ -62,6 +64,13 @@ namespace API.Controllers
         public List<Employee> GetAllEmployees()
         {
             return employeeQueryFacade.GetAllEmployees();
+        }
+
+        [HttpGet]
+        [Route("GetEmployeesPerformance")]
+        public List<EmployeePerformanceSegmentDto> GetEmployeesPerformance(Guid employeeId, DateTime fromDate , DateTime toDate)
+        {
+            return employeeQueryFacade.CalculatePerformance(employeeId, fromDate, toDate);
         }
 
 

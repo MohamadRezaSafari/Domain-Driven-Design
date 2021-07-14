@@ -86,7 +86,7 @@ namespace HR.EmployeeContext.Domain.Employees
             IsActive = true;
         }
 
-        public void AddUnitId(IEmployeeUnitIdExistsAclService employeeUnitIdValidateAclService, Guid unitId)
+        public void AddEmployeeUnitId(IEmployeeUnitIdExistsAclService employeeUnitIdValidateAclService, Guid unitId)
         {
             if (employeeUnitIdValidateAclService.IsExistUnitId(unitId))
                 throw new UnitIdNotExistsException();

@@ -11,7 +11,7 @@ namespace HR.ReadModel.Context.Models
         public Guid ShiftId { get; set; }
         public TimeSpan StartTime { get; set; }
         public TimeSpan EndTime { get; set; }
-        public Guid? NextShiftId { get; set; }
+        public Guid NextShiftId { get; set; }
 
         public virtual Shift Shift { get; set; }
     }

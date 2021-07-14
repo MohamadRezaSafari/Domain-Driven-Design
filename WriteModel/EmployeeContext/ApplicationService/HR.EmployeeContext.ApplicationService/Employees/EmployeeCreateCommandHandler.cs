@@ -21,7 +21,7 @@ namespace HR.EmployeeContext.ApplicationService.Employees
         public void Execute(EmployeeCreateCommand command)
         {
             Employee employee = new Employee(employeeRepository, command.FirstName, command.LastName);
-            employee.AddUnitId(_employeeUnitIdValidateAclService, command.UnitId);
+            employee.AddEmployeeUnitId(_employeeUnitIdValidateAclService, command.UnitId);
             this.employeeRepository.Create(employee);
         }
     }

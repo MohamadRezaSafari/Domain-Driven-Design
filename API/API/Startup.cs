@@ -14,6 +14,7 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using Microsoft.OpenApi.Any;
 using System.Configuration;
+using System.Globalization;
 using HR.EmployeeContext.Facade.Contract;
 using HR.EmployeeContext.Infrastructure.AntiCorruptionLayer.Shifts;
 
@@ -76,6 +77,14 @@ namespace API
             app.UseRouting();
 
             app.UseAuthorization();
+
+
+            var cultureInfo = new CultureInfo("en-US");
+            cultureInfo.NumberFormat.CurrencySymbol = "€";
+
+            CultureInfo.DefaultThreadCurrentCulture = cultureInfo;
+            CultureInfo.DefaultThreadCurrentUICulture = cultureInfo;
+
 
             app.UseEndpoints(endpoints =>
             {

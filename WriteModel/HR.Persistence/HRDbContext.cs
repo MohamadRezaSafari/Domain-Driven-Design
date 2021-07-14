@@ -23,13 +23,11 @@ namespace HR.Persistence
                 modelBuilder.ApplyConfiguration(a);
 
             });
-            //base.OnModelCreating(modelBuilder);
         }
 
 
         protected List<dynamic> DetectEntityMapping()
         {
-
             var assemblyHelper = new AssemblyDiscovery("HR*.dll");
             var getType = assemblyHelper.DiscoverTypes<IEntityMapping>("HR")
                 .Select(Activator.CreateInstance)

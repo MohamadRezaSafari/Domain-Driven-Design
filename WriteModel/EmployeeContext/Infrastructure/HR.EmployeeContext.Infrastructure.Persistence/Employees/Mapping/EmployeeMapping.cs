@@ -3,7 +3,6 @@ using HR.EmployeeContext.Domain.Employees;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using System.Data;
-using HR.DefinitionContext.Domain.Units;
 
 namespace HR.EmployeeContext.Infrastructure.Persistence.Employees.Mapping
 {

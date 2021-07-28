@@ -8,6 +8,7 @@ namespace HR.ShiftContext.Domain.Shifts.Services
 {
     public interface IShiftRepository : IRepository
     {
+        List<Shift> GetAllShifts();
         List<ShiftSegment> GetShiftSegments(Guid shiftId);
         Shift GetShiftByShiftSegmentId(Guid shiftSegmentId);
         List<Shift> GetShifts(List<Guid> shiftIds);

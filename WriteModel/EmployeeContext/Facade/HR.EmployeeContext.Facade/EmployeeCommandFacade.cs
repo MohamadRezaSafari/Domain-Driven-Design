@@ -50,9 +50,12 @@ namespace HR.EmployeeContext.Facade
 
         public void CreateEmployeeIO(EmployeeIOCreateCommand command)
         {
-            //command.IsValid = employeeIoDateTimeValidateAclService.IsValidDateTime(command.EmployeeId, DateTime.Now);
             CommandBus.Dispatch(command);
         }
 
+        public void CalculateEmployeePerformance(EmployeePerformanceCalculateCommand command)
+        {
+            CommandBus.Dispatch(command);
+        }
     }
 }

@@ -61,6 +61,15 @@ namespace HR.ShiftContext.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to dfdf.
+        /// </summary>
+        public static string EmployeeDontHaveShiftAssignmentException {
+            get {
+                return ResourceManager.GetString("EmployeeDontHaveShiftAssignmentException", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to برای شیفت های ثابت  این امکان وجود ندارد.
         /// </summary>
         public static string InvalidInOrderSingleShiftSegmentException {

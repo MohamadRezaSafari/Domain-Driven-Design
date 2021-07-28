@@ -29,6 +29,23 @@ namespace HR.EmployeeContext.Infrastructure.AntiCorruptionLayer.Shifts
             return shiftRepository.GetShiftByShiftSegmentId(shiftSegmentId).Adapt<ShiftDto>();
         }
 
+        public List<ShiftSegmentDto> GetShiftByShiftSegmentId(List<Guid> ids)
+        {
+            var shiftSegmentIdList = shiftRepository.GetAllShifts()
+                .Where(i => i.ShiftSegments.Any(a => ids.Contains(a.Id)))
+                .SelectMany(i => i.ShiftSegments)
+                .ToList();
 
+            return shiftSegmentIdList.Adapt<List<ShiftSegmentDto>>();
+            //var shiftSegmentIdList = shiftRepository.Shifts
+            //    .Where(i => i.ShiftSegments.Any(a => shiftSegmentIds.Contains(a.Id)))
+            //    .SelectMany(i => i.ShiftSegments)
+            //    .ToList();
+        }
+
+        public List<ShiftDto> GetAllShifts()
+        {
+            return shiftRepository.GetAllShifts().Adapt<List<ShiftDto>>();
+        }
     }
 }

@@ -4,14 +4,16 @@ using HR.Persistence;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace HR.Persistence.Migrations
 {
     [DbContext(typeof(HRDbContext))]
-    partial class HRDbContextModelSnapshot : ModelSnapshot
+    [Migration("20210717083510_Performance")]
+    partial class Performance
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -126,15 +128,13 @@ namespace HR.Persistence.Migrations
                     b.Property<DateTime>("FromDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<long>("Sum")
-                        .HasColumnType("bigint");
+                    b.Property<TimeSpan>("Sum")
+                        .HasColumnType("time");
 
                     b.Property<DateTime>("ToDate")
                         .HasColumnType("datetime2");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("EmployeeId");
 
                     b.ToTable("Performance", "EmployeeContext");
                 });
@@ -150,8 +150,8 @@ namespace HR.Persistence.Migrations
                     b.Property<Guid>("ShiftSegmentId")
                         .HasColumnType("UniqueIdentifier");
 
-                    b.Property<long>("Sum")
-                        .HasColumnType("bigint");
+                    b.Property<DateTime>("Sum")
+                        .HasColumnType("datetime2");
 
                     b.HasKey("Id");
 
@@ -237,15 +237,6 @@ namespace HR.Persistence.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("HR.EmployeeContext.Domain.Employees.Performance", b =>
-                {
-                    b.HasOne("HR.EmployeeContext.Domain.Employees.Employee", null)
-                        .WithMany("Performance")
-                        .HasForeignKey("EmployeeId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
             modelBuilder.Entity("HR.EmployeeContext.Domain.Employees.ShiftAssignment", b =>
                 {
                     b.HasOne("HR.EmployeeContext.Domain.Employees.Employee", null)
@@ -268,8 +259,6 @@ namespace HR.Persistence.Migrations
                     b.Navigation("EmployeeContracts");
 
                     b.Navigation("EmployeeIos");
-
-                    b.Navigation("Performance");
 
                     b.Navigation("ShiftAssignments");
                 });

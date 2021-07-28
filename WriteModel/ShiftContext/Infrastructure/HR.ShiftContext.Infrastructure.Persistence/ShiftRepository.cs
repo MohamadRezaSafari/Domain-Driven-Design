@@ -63,6 +63,11 @@ namespace HR.ShiftContext.Infrastructure.Persistence
             yield return e => e.ShiftSegments;
         }
 
+        public List<Shift> GetAllShifts()
+        {
+            return base.Set.ToList();
+        }
+
         public List<ShiftSegment> GetShiftSegments(Guid shiftId)
         {
             return dbContext.Set<ShiftSegment>().Where(i => i.ShiftId == shiftId).ToList();

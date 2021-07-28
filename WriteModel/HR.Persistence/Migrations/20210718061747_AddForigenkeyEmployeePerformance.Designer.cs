@@ -4,14 +4,16 @@ using HR.Persistence;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace HR.Persistence.Migrations
 {
     [DbContext(typeof(HRDbContext))]
-    partial class HRDbContextModelSnapshot : ModelSnapshot
+    [Migration("20210718061747_AddForigenkeyEmployeePerformance")]
+    partial class AddForigenkeyEmployeePerformance
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -126,8 +128,8 @@ namespace HR.Persistence.Migrations
                     b.Property<DateTime>("FromDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<long>("Sum")
-                        .HasColumnType("bigint");
+                    b.Property<TimeSpan>("Sum")
+                        .HasColumnType("time");
 
                     b.Property<DateTime>("ToDate")
                         .HasColumnType("datetime2");
@@ -150,8 +152,8 @@ namespace HR.Persistence.Migrations
                     b.Property<Guid>("ShiftSegmentId")
                         .HasColumnType("UniqueIdentifier");
 
-                    b.Property<long>("Sum")
-                        .HasColumnType("bigint");
+                    b.Property<DateTime>("Sum")
+                        .HasColumnType("datetime2");
 
                     b.HasKey("Id");
 

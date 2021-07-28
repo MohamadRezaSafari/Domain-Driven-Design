@@ -6,6 +6,7 @@ using HR.ReadModel.Queries.Contracts.Employees;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using HR.ReadModel.Queries.Contracts.Employees.DataContracts.Employees.EmployeePerformance;
+using HR.EmployeeContext.Domain.Employees.Dto;
 
 namespace API.Controllers
 {
@@ -23,14 +24,12 @@ namespace API.Controllers
             this.employeeQueryFacade = employeeQueryFacade;
         }
 
-
         [HttpGet]
         [Route("GetEmployeeIos")]
         public void GetEmployeeIos()
         {
             employeeQueryFacade.GetEmployeeIos();
         }
-
 
 
         [HttpPost]
@@ -40,15 +39,12 @@ namespace API.Controllers
             employeeCommandFacade.EmployeeReHire(command);
         }
 
-
         [HttpDelete]
         [Route("EmployeeSettlement")]
         public void EmployeeSettlement(EmployeeSettlementCommand command)
         {
             employeeCommandFacade.EmployeeSettlement(command);
         }
-        
-
 
         [HttpPost]
         [Route("EmployeeIoCreate")]
@@ -57,22 +53,12 @@ namespace API.Controllers
             employeeCommandFacade.CreateEmployeeIO(command);
         }
 
-
-
         [HttpGet]
         [Route("GetAllEmployees")]
         public List<Employee> GetAllEmployees()
         {
             return employeeQueryFacade.GetAllEmployees();
         }
-
-        [HttpGet]
-        [Route("GetEmployeesPerformance")]
-        public List<EmployeePerformanceSegmentDto> GetEmployeesPerformance(Guid employeeId, DateTime fromDate , DateTime toDate)
-        {
-            return employeeQueryFacade.CalculatePerformance(employeeId, fromDate, toDate);
-        }
-
 
         [HttpPost]
         [Route("EmployeeCreate")]
@@ -108,5 +94,14 @@ namespace API.Controllers
         {
             employeeCommandFacade.ConcludeEmployeeContract(command);
         }
+
+        [HttpPost]
+        [Route("EmployeePerformance")]
+        public void AddEmployeePerformance(EmployeePerformanceCalculateCommand command)
+        {
+            employeeCommandFacade.CalculateEmployeePerformance(command);
+        }
+
+
     }
 }

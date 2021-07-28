@@ -14,5 +14,7 @@ namespace HR.EmployeeContext.Domain.Employees.Services
         bool Any(Expression<Func<Employee, bool>> expression);
         bool BoolHasShift(Expression<Func<ShiftAssignment, bool>> expression);
         void ShiftAssign(ShiftAssignment shiftAssignment);
+        bool HasEmployeeShiftAssign(long employeeId);
+        bool HasEmployeeContract(Guid employeeId);
     }
 }

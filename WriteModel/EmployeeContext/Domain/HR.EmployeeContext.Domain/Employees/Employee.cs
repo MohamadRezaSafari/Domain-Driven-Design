@@ -4,7 +4,9 @@ using System.Linq;
 using System.Linq.Expressions;
 using Framework.Core.Domain;
 using Framework.Domain;
+using HR.EmployeeContext.Domain.Employees.Dto;
 using HR.EmployeeContext.Domain.Employees.Exceptions.Employee;
+using HR.EmployeeContext.Domain.Employees.Exceptions.performance;
 using HR.EmployeeContext.Domain.Employees.Exceptions.ShiftAssignment;
 using HR.EmployeeContext.Domain.Employees.Services;
 using HR.EmployeeContext.Domain.Employees.Services.ACL;
@@ -76,7 +78,7 @@ namespace HR.EmployeeContext.Domain.Employees
 
         public ICollection<EmployeeContract> EmployeeContracts { set; get; } = new HashSet<EmployeeContract>();
 
-
+        public ICollection<Performance> Performance { set; get; } = new HashSet<Performance>();
 
         public void EmployeeReHire(IEmployeeIsExists employeeIsExists)
         {
@@ -116,13 +118,13 @@ namespace HR.EmployeeContext.Domain.Employees
         }
 
 
-        public void AddEmployeeIo( EmployeeIo employeeIo, ShiftAssignment shiftAssignment, EmployeeContract employeeContract, ShiftDto shift, List<ShiftSegmentDto> shiftSegmentDto)
+        public void AddEmployeeIo(EmployeeIo employeeIo, ShiftAssignment shiftAssignment, EmployeeContract employeeContract, ShiftDto shift, List<ShiftSegmentDto> shiftSegmentDto)
         {
             var daysSpentFromLastEmployeeContact = (DateTime.Now.Date - employeeContract.StartDate.Date).Days;
             var dayOfShiftSegment = daysSpentFromLastEmployeeContact % (shift.ShiftSegments.Count);
             var calculateLoopCounter = (dayOfShiftSegment == 0) ? shift.ShiftSegments.Count : dayOfShiftSegment;
 
-            Guid ? nextSegmentId = null;
+            Guid? nextSegmentId = null;
             for (int c = 1; c <= calculateLoopCounter; c++)
             {
                 if (c == 1)
@@ -177,5 +179,133 @@ namespace HR.EmployeeContext.Domain.Employees
                 throw new EmptyShiftAssignedException();
             EmployeeContracts.Add(employeeContract);
         }
+
+
+        public List<EmployeePerformanceSegmentDto> CalculatePerformance(IEmployeeHasEmployeeContract employeeHasEmployeeContract, IShiftRepositoryACL shiftRepositoryAcl, DateTime fromDate, DateTime toDate)
+        {
+            if (!employeeHasEmployeeContract.HaveEmployeeEmployeeContract(Id))
+                throw new EmployeeDontHaveEmployeeContractException();
+
+            List<ShiftAssignmentDto> shiftAssignments = new List<ShiftAssignmentDto>();
+            List<EmployeePerformanceDto> employeePerformanceDtos = new List<EmployeePerformanceDto>();
+
+            var employeeShiftAssignments = GetEmployeeAssignments(Id, fromDate, toDate);
+
+            var shiftSegmentIds = employeeShiftAssignments
+                .Select(i => i.ShiftSegmentId)
+                .ToList();
+
+            var a = shiftRepositoryAcl.GetAllShifts();
+
+            var shiftSegmentIdList = shiftRepositoryAcl.GetAllShifts()
+                .Where(i => i.ShiftSegments.Any(a => shiftSegmentIds.Contains(a.Id)))
+                .SelectMany(i => i.ShiftSegments)
+                .ToList();
+
+            var shifts = shiftRepositoryAcl.GetAllShifts()
+                .Where(i => i.ShiftSegments.Any(x => shiftSegmentIdList.Select(a => a.ShiftId).Distinct().Contains(x.ShiftId)))
+                .ToList();
+
+            var employeeSortedIo = GetEmployeeSortedIo(Id);
+
+            foreach (var item in employeeShiftAssignments.Where(i => shiftSegmentIdList.Select(x => x.Id).ToList().Contains(i.ShiftSegmentId.Value)).ToList())
+            {
+                shiftAssignments.Add(item.EndDate != null
+                    ? new ShiftAssignmentDto()
+                    {
+                        Id = item.Id,
+                        ShiftSegmentId = item.ShiftSegmentId.Value,
+                        StartDate = item.StartDate,
+                        EndDate = item.EndDate.Value
+                    }
+                    : new ShiftAssignmentDto()
+                    {
+                        Id = item.Id,
+                        ShiftSegmentId = item.ShiftSegmentId.Value,
+                        StartDate = item.StartDate,
+                        EndDate = toDate
+                    });
+            }
+
+            foreach (var shiftAssign in shiftAssignments)
+            {
+                var shiftSegmentStart = shiftAssign.ShiftSegmentId;
+                Guid nextSegmentId = shiftSegmentStart;
+
+                foreach (var io in employeeSortedIo)
+                {
+                    if (io.Key >= shiftAssign.StartDate && io.Key <= shiftAssign.EndDate)
+                    {
+                        var currentShiftSegment = shiftSegmentIdList.Find(i => i.Id == nextSegmentId);
+
+                        if (currentShiftSegment.EndTime.TotalSeconds == 0 && currentShiftSegment.StartTime.TotalSeconds == 0)
+                        {
+                            nextSegmentId = currentShiftSegment.NextShiftId.Value;
+                            continue;
+                        }
+
+                        employeePerformanceDtos.Add(new EmployeePerformanceDto()
+                        {
+                            EmployeeId = this.Id,
+                            ShiftSegmentId = nextSegmentId,
+                            TimeOfWork = io.Value.TotalSeconds
+                        });
+
+                        nextSegmentId = currentShiftSegment.NextShiftId.Value;
+                    }
+                }
+            }
+
+            return employeePerformanceDtos
+                .GroupBy(ep => new { ep.ShiftSegmentId })
+                .Select(ep => new EmployeePerformanceSegmentDto()
+                {
+                    ShiftSegmentId = ep.Key.ShiftSegmentId,
+                    ShiftId = shifts.Where(sh => sh.ShiftSegments.Any(shiftSegment => shiftSegment.Id == ep.Key.ShiftSegmentId)).First().Id,
+                    SumOfWorkHoure = TimeSpan.FromSeconds(ep.Sum(a => a.TimeOfWork))
+                })
+                .ToList();
+        }
+
+
+
+        public void AddPerformance(IEmployeeHasShiftAssignment employeeHasShiftAssignment, IPerformanceDuplicateChecker performanceDuplicateChecker,Performance performance)
+        {
+            if (!employeeHasShiftAssignment.HasEmployeeShiftAssign(EmployeeId))
+                throw new EmployeeDontHaveShiftAssignmentException();
+
+            if (performanceDuplicateChecker.IsDuplicated(this.Id, performance.FromDate.Date, performance.ToDate.Date))
+                throw new EmployeeDontHaveShiftAssignmentException();
+
+            this.Performance.Add(performance);
+        }
+
+        private List<ShiftAssignment> GetEmployeeAssignments(Guid employeeId, DateTime fromDate, DateTime toDate)
+        {
+            return this.ShiftAssignments
+                .Where(sa => ((sa.StartDate <= fromDate &&
+                                  (sa.EndDate != null && sa.EndDate >= toDate))
+                                 || (sa.StartDate > fromDate
+                                     && (sa.StartDate < toDate ||
+                                         (sa.EndDate != null && sa.EndDate <= toDate))
+                                 )
+                             )
+                ).OrderBy(assignment => assignment.StartDate)
+                .ToList();
+        }
+
+        private SortedList<DateTime, TimeSpan> GetEmployeeSortedIo(Guid employeeId)
+        {
+            var ios = new SortedList<DateTime, TimeSpan>();
+            var employeeIOs = this.EmployeeIos.Where(io => io.EmployeeId == employeeId).OrderBy(io => io.DateTime).ToList();
+            for (int i = 2; i <= employeeIOs.Count; i += 2)
+            {
+                var totalSeconds = employeeIOs[i - 1].DateTime.TimeOfDay.TotalSeconds - employeeIOs[i - 2].DateTime.TimeOfDay.TotalSeconds;
+                ios.Add(employeeIOs[i - 2].DateTime, TimeSpan.FromSeconds(Math.Abs(totalSeconds)));
+            }
+            return ios;
+        }
+
+
     }
 }

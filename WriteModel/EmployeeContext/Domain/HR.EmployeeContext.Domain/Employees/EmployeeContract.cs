@@ -18,8 +18,6 @@ namespace HR.EmployeeContext.Domain.Employees
             SetStartDate(employeeRepository,employeeId,endDate);
             SetEndDate(endDate);
             SetUnitId(unitId);
-            
-
         }
 
 

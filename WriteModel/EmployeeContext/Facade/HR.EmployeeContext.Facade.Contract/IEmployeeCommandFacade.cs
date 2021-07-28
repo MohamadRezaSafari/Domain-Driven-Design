@@ -13,5 +13,6 @@ namespace HR.EmployeeContext.Facade.Contract
         void AssignShift(ShiftAssignmentCommend command);
         void ConcludeEmployeeContract(EmployeeContractCreateCommand command);
         void CreateEmployeeIO(EmployeeIOCreateCommand command);
+        void CalculateEmployeePerformance(EmployeePerformanceCalculateCommand command);
     }
 }

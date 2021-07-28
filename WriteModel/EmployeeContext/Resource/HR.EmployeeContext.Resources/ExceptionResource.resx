@@ -120,6 +120,15 @@
   <data name="DateTimeRequiredException" xml:space="preserve">
     <value>تاریخ نمی تواند خالی باشد</value>
   </data>
+  <data name="EmployeeDontHaveEmployeeContract" xml:space="preserve">
+    <value>کد پرسنلی فاقد قرارداد ثبت شده است</value>
+  </data>
+  <data name="EmployeeDontHaveShiftAssignmentException" xml:space="preserve">
+    <value>برای کدپرسنلی اختصاص شیفت صورت نگرفته</value>
+  </data>
+  <data name="EmployeeIdIsRequiredException" xml:space="preserve">
+    <value>کد پرسنلی الزامی می باشد</value>
+  </data>
   <data name="EmployeeIdRequiredException" xml:space="preserve">
     <value>کد پرسنلی موجود نمی باشد</value>
   </data>
@@ -152,6 +161,9 @@
   </data>
   <data name="FirstNameRequiredException" xml:space="preserve">
     <value>نام نمی تواند خالی باشد</value>
+  </data>
+  <data name="FromDateIsLongerException" xml:space="preserve">
+    <value>بازه زمانی نا معتبر می باشد</value>
   </data>
   <data name="HolidayException" xml:space="preserve">
     <value>امکان تردد در روز تعطیل وجود ندارد</value>

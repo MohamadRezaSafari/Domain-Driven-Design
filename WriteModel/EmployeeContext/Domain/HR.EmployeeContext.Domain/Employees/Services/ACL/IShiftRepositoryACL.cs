@@ -12,5 +12,7 @@ namespace HR.EmployeeContext.Domain.Employees.Services.ACL
     {
         List<ShiftSegmentDto> GetShiftSegments(Guid shiftId);
         ShiftDto GetShiftByShiftSegmentId(Guid id);
+        List<ShiftSegmentDto> GetShiftByShiftSegmentId(List<Guid> ids);
+        List<ShiftDto> GetAllShifts();
     }
 }

@@ -70,6 +70,33 @@ namespace HR.EmployeeContext.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to کد پرسنلی فاقد قرارداد ثبت شده است.
+        /// </summary>
+        public static string EmployeeDontHaveEmployeeContract {
+            get {
+                return ResourceManager.GetString("EmployeeDontHaveEmployeeContract", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to برای کدپرسنلی اختصاص شیفت صورت نگرفته.
+        /// </summary>
+        public static string EmployeeDontHaveShiftAssignmentException {
+            get {
+                return ResourceManager.GetString("EmployeeDontHaveShiftAssignmentException", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to کد پرسنلی الزامی می باشد.
+        /// </summary>
+        public static string EmployeeIdIsRequiredException {
+            get {
+                return ResourceManager.GetString("EmployeeIdIsRequiredException", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to کد پرسنلی موجود نمی باشد.
         /// </summary>
         public static string EmployeeIdRequiredException {
@@ -165,6 +192,15 @@ namespace HR.EmployeeContext.Resources {
         public static string FirstNameRequiredException {
             get {
                 return ResourceManager.GetString("FirstNameRequiredException", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to بازه زمانی نا معتبر می باشد.
+        /// </summary>
+        public static string FromDateIsLongerException {
+            get {
+                return ResourceManager.GetString("FromDateIsLongerException", resourceCulture);
             }
         }
         

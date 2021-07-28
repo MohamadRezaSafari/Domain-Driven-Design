@@ -13,7 +13,6 @@ namespace HR.EmployeeContext.Infrastructure.Persistence.Employees
     {
         public EmployeeRepository(IDbContext dbContext) : base(dbContext)
         {
-            
         }
 
         public void Create(Employee employee)
@@ -28,21 +27,17 @@ namespace HR.EmployeeContext.Infrastructure.Persistence.Employees
 
         public Employee GetByEmployeeId(long employeeId)
         {
-            //return base.Set.SingleOrDefault(e => e.EmployeeId == employeeId);
             return dbContext.Set<Employee>().Include(e => e.ShiftAssignments).Include(e=>e.EmployeeIos).Include(e=>e.EmployeeContracts).SingleOrDefault(e => e.EmployeeId == employeeId);
         }
         public Employee GetShiftAssignmentByEmployeeId(long employeeId)
         {
             return dbContext.Set<Employee>().Include(e=>e.ShiftAssignments).SingleOrDefault(e => e.EmployeeId == employeeId);
-            
         }
 
         public ShiftAssignment GetLastShiftAssignmentByEmployeeId(long employeeId)
         {
             var employee= dbContext.Set<Employee>().Include(e => e.ShiftAssignments).SingleOrDefault(e => e.EmployeeId == employeeId);
             return employee.ShiftAssignments.OrderByDescending(e => e.StartDate).FirstOrDefault();
-
-
         }
 
         public bool Any(Expression<Func<Employee, bool>> expression)
@@ -63,6 +58,17 @@ namespace HR.EmployeeContext.Infrastructure.Persistence.Employees
         public void ShiftAssign(ShiftAssignment shiftAssignment)
         {
            // base.Create(shiftAssignment);
+        }
+
+        public bool HasEmployeeShiftAssign(long employeeId)
+        {
+            return dbContext.Set<Employee>().Include(e => e.ShiftAssignments).Any(i => i.EmployeeId == employeeId);
+        }
+
+        public bool HasEmployeeContract(Guid employeeId)
+        {
+            return true;
+            //return dbContext.Set<Employee>().Include(e => e.EmployeeId)
         }
 
 
